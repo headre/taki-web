@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <navbar></navbar>
+    <!--end header-section-->
+    <!--banner-->
+
+    <div class="content">
+      <div class="welcome">
+        <div class="container">
+          <div class="welcome-grids">
+            <div class="welcome-grid1">
+              <h2 class="cinema_h2">Add a screen</h2>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="container">
+          <div class="contact-grids">
+            <div class="col-md-12 contact-right">
+              <form>
+                <h5>Date</h5>
+                <input v-model="screenForm.date" placeholder="input date here" type="text">
+                <h5>Name</h5>
+                <input v-model="screenForm.id" placeholder="input movie's id" type="text">
+                <h5>Room</h5>
+                <input v-model="screenForm.room" placeholder="input auditorium's id" type="text">
+                <br/><br/>
+                <input @click="on_submit" type="submit" class="btn-success" value="Confirm">
+                <br/><br/>
+                <router-link :to="{name:'screen_manage',params:{key:'screen_manage'}}"><a class="button">Cancle</a>
+                </router-link>
+              </form>
+
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-section" style="background-color:#8a6d3bc2">
+        <div class="container">
+          <div class="footer-top">
+            <p>Copyright &copy; 2020 </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>
+
+<script>
+  // import '../js/bootstrap'
+  import navbar from './navbar'
+
+  export default {
+    name: 'add_screen',
+    data () {
+      return {
+        screenForm:{
+          id:"",
+          date:"",
+          room:""
+        }
+      }
+    },
+    methods:{
+      on_submit(){
+        const sdata = {"movie": {"id":parseInt(this.screenForm.id)},"date":this.screenForm.date,"auditorium": {"id":parseInt(this.screenForm.room)} }
+
+        console.log(this.screenForm.date)
+        this.$axios({
+          method:'post',
+          url:'/api/screenings',
+          withCredentials:true,
+          data:sdata
+        }).then((response)=>{
+          console.log(response)
+          alert('add successfully?')
+          var _this = this
+          _this.$router.push({
+            name:'screen_manage'
+          })
+        }).catch((error)=>{
+          console.log(error)
+        })
+      }
+    },
+    components: {
+      navbar
+    }
+  }
+</script>
+
+<style scoped>
+</style>

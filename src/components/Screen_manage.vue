@@ -8,7 +8,7 @@
           <div class="container">
             <div class="welcome-grids">
               <div class="welcome-grid1">
-                <h2 class="cinema_h2">Screens Management</h2>
+                <h2 class="cinema_h2">Screen Management</h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -63,7 +63,9 @@
                 <th>
                   <button class="btn btn-primary">Movie</button>
                 </th>
-                <th></th>
+                <th>
+                  <button class="btn btn-primary">Name</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -82,7 +84,8 @@
               <tr v-for="(item,index) in screenings":key="index">
                 <td>Room {{item.auditoriumId}}</td>
                 <td>{{item.time}}</td>
-                <td>BloodShot</td>
+                <td>{{item.date}}</td>
+                <td>{{filterName(item.movieId)}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -93,30 +96,35 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <router-link :to="{name:'edit_screen',params:{key:item.id}}">
+                  <router-link :to="{name:'edit_screen',query:{screenId:item.id}}">
                     <button class="btn btn-primary">Edit</button>
                   </router-link>
                 </td>
-                <td><a href="#">
-                  <button class="btn btn-primary">Delete</button>
-                </a></td>
+                <td>
+                  <button @click="Delete(item.id)" class="btn btn-primary">Delete</button>
+                </td>
               </tr>
               </tbody>
             </table>
-          </div>
-          <div class="col-md-1"></div>
+            <div class="page-bar">
+              <ul>
+                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">Previous</a></li>
+                <li v-if="cur==1"><a class="banclick">Previous</a></li>
+                <li v-for="index in indexs" v-bind:class="{ 'active': cur === index}">
+                  <a v-on:click="btnClick(index)">{{ index }}</a>
+                </li>
+                <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">Next</a></li>
+                <li v-if="cur == all"><a class="banclick">Next</a></li>
+                <li><a>total:<i>{{all}}</i>pages</a></li>
+              </ul>
+            </div>
+
+
+          </div><div class="col-md-1"></div>
         </div>
       </div>
 
-
-      <div class="footer-section" style="background-color:#8a6d3bc2">
-        <div class="container">
-          <div class="footer-top">
-            <p>Copyright &copy; 2020 </p>
-          </div>
-        </div>
-      </div>
-
+      <footerbar/>
 
     </div>
   </div>
@@ -124,32 +132,40 @@
 
 <script type="text/javascript">
   import navbar from './navbar'
-
+  import footerbar from './footerbar'
   export default {
     name: 'screen_manage',
-    data () {
-      return {
+    data(){
+      return{
+        all: 6, // 总页数
+        cur: 1, // 当前页码
+        totalPage: 0,// 当前条数
         message: 'cinema',
         screenings: [],
-        movies:[],
-        movie:''
+        movies: [],
       }
-    },
+    }
+    ,
     components: {
+      footerbar ,
       navbar
     },
     methods: {
-      getData () {
-        var _this=this
-        _this.$axios.get('/api/screenings')
-          .then(function (response) {
-            _this.screenings = response.data
-            console.log(_this.screenings)
-            for(let i =0;i<_this.screenings.length;i++){
-              let id = parseInt(_this.screenings[i].movieId)
-              console.log(id)
-              _this.getMovieName(id)
-            }
+      getScreenData (index) {
+        var _this = this
+        _this.$axios({
+          method:'get',
+          url: '/api/screenings',
+          params:{
+            p:index,
+            s:10
+          }
+        }).then(function (response) {
+            _this.screenings = response.data.content
+            _this.all = response.data.totalPages// 总页数
+            _this.cur = response.data.number+1
+            _this.totalPage = response.data.totalPages
+            console.log('?????',response.data.totalPages,_this.screenings)
           })
           .catch(function (error) {
             console.log(error)
@@ -168,42 +184,147 @@
           console.log(error)
         })
       },
-      getMovieName(id){
-        var _this=this;/*
-        _this.$axios({
-          method:'get',
-          url:'/api/movies/'+id
-        }).then((response)=>{
-          _this.movies.push({'this.id':response.data.name})
-          console.log(_this.movies)
-        }).catch((error)=>{
-          console.log('4'+error)
-        })*/
-        console.log('h')
-      }
-    },
-    computed:{
-      findMovie(id){
-        for(let movie in this.movies){
-
+      getMovieData(){
+        var _this = this
+        _this.$axios.get('/api/movies')
+          .then(function (response) {
+            _this.movies = response.data.content
+            console.log(_this.movies)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
+      // 请求数据
+      /*
+      dataListFn: function (index) {
+        this.$axios.get('',
+          {
+            params: {
+              page: index,
+              limit: '6',
+              state: 0
+            }
+          }).then((res) => {
+          if (res.data.message === 'success') {
+            this.dataList = []
+            for (let i = 0; i < res.data.data.length; i++) {
+              this.dataList.push(res.data.data[i])
+            }
+            this.all = res.data.totalPage// 总页数
+            this.cur = res.data.pageNum
+            this.totalPage = res.data.totalPage
+          }
+        })
+      },*/
+      // 分页
+      btnClick: function (data) { // 页码点击事件
+        if (data !== this.cur) {
+          this.cur = data
         }
+        // 根据点击页数请求数据
+        this.getScreenData(this.cur)
+      },
+      pageClick: function () {
+        // 根据点击页数请求数据
+        this.getScreenData(this.cur)
       }
     },
-    created(){
-      var _this=this;
-      _this.getData();
-      console.log('5'+_this.screenings)
+    computed: {
+      filterName(){
+        return function (id) {
+            if(this.movies.length==0){
+              console.log("empty")
+            }else {
+              console.log(this.movies.length)
+            }
+            var name = "name"
+            this.movies.forEach((item,index)=>{
+              if(item.id==id){
+                console.log(item.name)
+                name = item.name
+              }
+            })
+          return name
+        }
+      },
+      indexs: function () {
+        var left = 1
+        var right = this.all
+        var ar = []
+        if (this.all >= 5) {
+          if (this.cur > 3 && this.cur < this.all - 2) {
+            left = this.cur - 2
+            right = this.cur + 2
+          } else {
+            if (this.cur <= 3) {
+              left = 1
+              right = 5
+            } else {
+              right = this.all
+              left = this.all - 4
+            }
+          }
+        }
+        while (left <= right) {
+          ar.push(left)
+          left++
+        }
+        return ar
+      }
     },
     mounted () {
-      var _this=this
-      console.log('3'+_this.screenings)
-      for(i in this.screenings){
-        console.log(i)
-        _this.getMovieName(i.movieId)
-      }
+      this.getMovieData();
+      this.getScreenData(1);
     }
   }
 </script>
 
 <style scoped>
+  .page-bar{
+    margin:40px auto;
+    margin-top: 150px;
+
+  }
+  ul,li{
+    margin: 0px;
+    padding: 0px;
+  }
+  li{
+    list-style: none
+  }
+  .page-bar li:first-child>a {
+    margin-left: 150px
+  }
+  .page-bar a{
+    border: 1px solid #ddd;
+    text-decoration: none;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #5D6062;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  .page-bar a:hover{
+    background-color: #eee;
+  }
+  .page-bar a.banclick{
+    cursor:not-allowed;
+  }
+  .page-bar .active a{
+    color: #fff;
+    cursor: default;
+    background-color: #E96463;
+    border-color: #E96463;
+  }
+  .page-bar i{
+    font-style:normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
+  }
+
 </style>

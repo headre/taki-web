@@ -40,14 +40,9 @@
         </div>
       </div>
 
-      <div class="footer-section" style="background-color:#8a6d3bc2">
-        <div class="container">
-          <div class="footer-top">
-            <p>Copyright &copy; 2020 </p>
-          </div>
-        </div>
-      </div>
+
     </div>
+    <footerbar/>
   </div>
 
 </template>
@@ -55,6 +50,7 @@
 <script>
   // import '../js/bootstrap'
   import navbar from './navbar'
+  import footerbar from './footerbar'
 
   export default {
     name: 'add_screen',
@@ -69,7 +65,7 @@
     },
     methods:{
       on_submit(){
-        const sdata = {"movie": {"id":parseInt(this.screenForm.id)},"date":this.screenForm.date,"auditorium": {"id":parseInt(this.screenForm.room)} }
+        const sdata = {"movieId":parseInt(this.screenForm.id),"date":this.screenForm.date,"auditoriumId":parseInt(this.screenForm.room) }
 
         console.log(this.screenForm.date)
         this.$axios({
@@ -90,6 +86,7 @@
       }
     },
     components: {
+      footerbar,
       navbar
     }
   }

@@ -29,13 +29,7 @@
     </div>
 
 
-    <div class="footer-section">
-      <div class="container">
-        <div class="footer-top">
-          <p>Copyright &copy; 2020 </p>
-        </div>
-      </div>
-    </div>
+<footerbar></footerbar>
 
   </div>
  </div>
@@ -45,6 +39,7 @@
 <script>
 // import '../js/bootstrap'
 import navbar from './navbar'
+import footerbar from './footerbar'
 addEventListener('load', function () { setTimeout(hideURLbar, 0) }, false); function hideURLbar () { window.scrollTo(0, 1) }
 export default {
   name: 'Film',
@@ -54,6 +49,7 @@ export default {
     }
   },
   components: {
+    footerbar ,
     navbar
   }
 }

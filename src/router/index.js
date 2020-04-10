@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Index from '../components/Index'
-import Film from '../components/Film'
-import navbar from '../components/navbar'
 import Add_film from '../components/Add_film'
 import Add_screen from '../components/Add_screen'
 import Edit_film from '../components/Edit_film'
@@ -12,21 +8,14 @@ import Login from '../components/Login'
 import Screen_manage from '../components/Screen_manage'
 import Film_look from '../components/Film_look'
 import Film_manage from '../components/Film_manage'
-import Film2 from '../components/Film2'
+import Film from '../components/Film'
+import orders from '../components/Orders'
+import imageUpload from '../components/imageUpload'
+import testImgU from '../components/testImgU'
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/index',
-      name: 'Index',
-      component: Index
-    },
-    {
-      path: '/film',
-      name: 'Film',
-      component: Film
-    },
     {
       path:'/add_film',
       name:'add_film',
@@ -70,7 +59,22 @@ export default new Router({
     {
       path:'/',
       name:'film',
-      component:Film2
+      component:Film
+    },
+    {
+      path:'/orders',
+      name:'orders',
+      component:orders
+    },
+    {
+      path:'/upload',
+      name:'upload',
+      component:imageUpload
+    },
+    {
+      path:'/testu',
+      name:'testu',
+      component:testImgU
     }
   ]
 })

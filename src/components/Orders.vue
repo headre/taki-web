@@ -8,7 +8,7 @@
           <div class="container">
             <div class="welcome-grids">
               <div class="welcome-grid1">
-                <h2 class="cinema_h2">Movies Management</h2>
+                <h2 class="cinema_h2">Tickets Management</h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -16,44 +16,33 @@
         </div>
       </div>
 
-
       <!--testimonials-->
 
       <!--testimonials-->
       <div class="container" style="margin-top: 2%">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <div class="events"><h3>Movie List</h3>
+          <div class="events"><h3>Tickets List</h3>
+            <br/>
             <thead>
-            <tr>
-              <router-link :to="{name:'add_film',params:{key:'add_film'}}">
-                <button class="btn-warning">Add a movie</button>
-              </router-link>
-              <!--  <li><router-link :to="{name: 'Add_film',params:{key:'add_film'}}">Add<span class="sr-only">(current)</span>
-                </li> -->
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
+            <tr></tr>
             </thead>
 
-            <table class="table" style="background-color: antiquewhite">
+            <table class="table" style="background-color: #ffffff70">
               <thead>
               <tr>
                 <th>
-                  <button class="btn btn-primary">Name</button>
+                  <button class="btn btn-primary">ID</button>
                 </th>
-                <th></th>
-                <th></th>
+                <th>
+                  <button class="btn btn-primary">Date</button>
+                </th>
+                <th>
+                  <button class="btn btn-primary">Cost</button>
+                </th>
+                <th>
+                  <button class="btn btn-primary">Username</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -70,10 +59,11 @@
               </thead>
 
               <tbody>
-              <tr v-for="(item,index) in movies" :key="index">
-                <td>{{item.name}}</td>
-                <td></td>
-                <td></td>
+              <tr v-for="(item,index) in orders" :key="index">
+                <td>{{item.id}}</td>
+                <td>{{item.createdAt}}</td>
+                <td>{{item.totalCost}}</td>
+                <td>{{item.username}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -84,27 +74,17 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <router-link :to="{name:'edit_film',query:{movie:item.id}}">
-                    <button class="btn btn-primary">Edit</button>
-                  </router-link>
-                </td>
-                <td>
-                  <button @click="Delete(item.id) " class="btn btn-primary">Delete</button>
+                  <button @click="Delete(item.id)" class="btn btn-primary">Delete</button>
                 </td>
               </tr>
-
               </tbody>
             </table>
           </div>
           <div class="col-md-1"></div>
-
-
         </div>
       </div>
 
-
-  <footerbar></footerbar>
-
+      <footerbar> </footerbar>
 
     </div>
   </div>
@@ -113,13 +93,12 @@
 <script type="text/javascript">
   import navbar from './navbar'
   import footerbar from './footerbar'
-
   export default {
-    name: 'film_manage',
+    name: 'orders',
     data () {
       return {
         message: 'cinema',
-        movies: []
+        orders: []
       }
     },
     components: {
@@ -127,12 +106,12 @@
       navbar
     },
     methods: {
-      getData () {
+      getOrdersData () {
         var _this = this
-        _this.$axios.get('/api/movies')
+        _this.$axios.get('/api/orders')
           .then(function (response) {
-            _this.movies = response.data.content
-            console.log(_this.movies)
+            _this.orders = response.data.content
+            console.log(_this.orders.content)
           })
           .catch(function (error) {
             console.log(error)
@@ -142,8 +121,9 @@
         var _this = this
         _this.$axios({
           method: 'delete',
-          url: '/api/movies/' + id
+          url: '/api/orders/' + id
         }).then((response) => {
+          console.log('success')
           alert('delete successfully')
           _this.$router.go(0)
         }).catch((error) => {
@@ -151,11 +131,9 @@
         })
       }
     },
-    mounted () {
-      var _this = this
-      _this.getData()
+    created: function () {
+      this.getOrdersData()
     }
-
   }
 </script>
 

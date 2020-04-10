@@ -33,13 +33,15 @@
    			</div>
 
 
-
+<footerbar></footerbar>
    	</div>
   </div>
 </template>
 
 <script type="text/javascript">
 import navbar from './navbar'
+import footerbar from './footerbar'
+
 export default {
   name: 'Index',
   data () {
@@ -53,6 +55,7 @@ export default {
     }
   },
   components: {
+    footerbar ,
     navbar
   },
   methods: {
@@ -69,11 +72,11 @@ export default {
         console.log(response)
         alert('login successfully?')
         var _this = this
+        localStorage.setItem("isLogin",'true')
         _this.$router.push({
-          name:'film',
+          path:'/',
           params:{
-            key:'home',
-            status:'login'
+            key:'film'
           }
         })
       }).catch((error)=>{

@@ -28,7 +28,7 @@
 
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav cl-effect-16">
-                  <li v-if="position=='home'" class="active">
+                  <li v-if="position=='film'" class="active">
                     <router-link :to="{name:'film',params:{key:'film'}}">Home</router-link>
                   </li>
                   <li v-else>

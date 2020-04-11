@@ -11,16 +11,15 @@
         <div class="welcome-grids">
          <div class="col-md-2"></div>
           <div class="col-md-8 welcome-grid1">
-            <img src="../images/inception.jpg" class="img-responsive" alt="">
+            <img :src="$host+'/file/'+img" class="img-responsive" alt="">
             <br />
             <div class="col-md-2">
-              <h2>Inception</h2>
-              <h4>Release date: 4/2015</h4>
-              <br/><ul class="d" style="color:#fff">decription: ... ... ...</ul><br/>
+              <h2>{{textData.name}}</h2>
+              <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>
 
-              <router-link :to="{name:'Film',params:{key:'film'}}"> <a class="button">Return</a></router-link>
+              <router-link :to="{name:'film',params:{key:'film'}}"> <a class="button">Return</a></router-link>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-6"></div>
           </div>
 
           <div class="clearfix"></div>
@@ -45,13 +44,37 @@ export default {
   name: 'Film',
   data () {
     return {
-      msg: 'this is film page'
+      msg: 'this is film page',
+      id:-1,
+      textData:null,
+      img:null
+    }
+  },
+  computed:{
+    //获取电影数据与图片
+    getMovieData(){
+      let mid = this.$route.query.key
+      if(mid != null){
+        this.id = mid
+        this.$axios({
+          method:'get',
+          url:'/api/movies/'+this.id+'/info'
+        }).then((response)=>{
+          this.textData = response.data
+          this.img = response.data.cover
+        }).catch((error)=>{
+          console.log(error)
+        })
+      }
     }
   },
   components: {
     footerbar ,
     navbar
-  }
+  },
+  mounted(){
+    this.getMovieData
+  },
 }
 </script>
 

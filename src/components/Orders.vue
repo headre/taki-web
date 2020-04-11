@@ -22,7 +22,7 @@
       <div class="container" style="margin-top: 2%">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <div class="events"><h3>Tickets List</h3>
+          <div class="events"><h3>Orders List</h3>
             <br/>
             <thead>
             <tr></tr>
@@ -72,7 +72,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td>
+                  <button @click="View(item.id)" class="btn btn-primary">View</button>
+                </td>
                 <td>
                   <button @click="Delete(item.id)" class="btn btn-primary">Delete</button>
                 </td>
@@ -106,6 +108,7 @@
       navbar
     },
     methods: {
+      //获取订单数据
       getOrdersData () {
         var _this = this
         _this.$axios.get('/api/orders')
@@ -117,6 +120,7 @@
             console.log(error)
           })
       },
+      //删除订单
       Delete (id) {
         var _this = this
         _this.$axios({
@@ -129,6 +133,10 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      //查看订单
+      View(id){
+
       }
     },
     created: function () {

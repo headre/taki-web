@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  //较为不错的选择图片界面，和imageUpload之间可能要取舍（也可能不用
   export default {
     name: 'testImgU',
     data () {

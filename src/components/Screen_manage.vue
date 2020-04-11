@@ -106,6 +106,7 @@
               </tr>
               </tbody>
             </table>
+
             <div class="page-bar">
               <ul>
                 <li v-if="cur>1"><a v-on:click="cur--,pageClick()">Previous</a></li>
@@ -165,7 +166,6 @@
             _this.all = response.data.totalPages// 总页数
             _this.cur = response.data.number+1
             _this.totalPage = response.data.totalPages
-            console.log('?????',response.data.totalPages,_this.screenings)
           })
           .catch(function (error) {
             console.log(error)
@@ -189,13 +189,12 @@
         _this.$axios.get('/api/movies')
           .then(function (response) {
             _this.movies = response.data.content
-            console.log(_this.movies)
           })
           .catch(function (error) {
             console.log(error)
           })
       },
-      // 请求数据
+      // 请求数据（被getScreenData代替）
       /*
       dataListFn: function (index) {
         this.$axios.get('',
@@ -233,15 +232,9 @@
     computed: {
       filterName(){
         return function (id) {
-            if(this.movies.length==0){
-              console.log("empty")
-            }else {
-              console.log(this.movies.length)
-            }
             var name = "name"
             this.movies.forEach((item,index)=>{
               if(item.id==id){
-                console.log(item.name)
                 name = item.name
               }
             })

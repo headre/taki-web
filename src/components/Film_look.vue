@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="film"></navbar>
   <!--end header-section-->
   <!--banner-->
 
@@ -13,7 +13,7 @@
           <div class="col-md-8 welcome-grid1">
             <img :src="$host+'/file/'+img" class="img-responsive" alt="">
             <br />
-            <div class="col-md-2">
+            <div class="col-md-8">
               <h2>{{textData.name}}</h2>
               <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>
 
@@ -64,6 +64,10 @@ export default {
           this.img = response.data.cover
         }).catch((error)=>{
           console.log(error)
+        })
+      }else {
+        this.$router.push({
+          path:'/'
         })
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="film_manage"></navbar>
   <!--end header-section-->
   <!--banner-->
 
@@ -60,9 +60,6 @@ export default {
       msg: 'this is film page',
       movieId:0,
       form:{
-        name:"",
-        duration:"",
-        blurb:""
       }
     }
   },
@@ -73,9 +70,7 @@ export default {
         url:'/api/movies/'+movieId+'/info'
       }).then((response)=>{
         console.log(response.data)
-        this.form.name = response.data.name
-        this.form.duration = response.data.duration
-        this.form.blurb = response.data.blurb
+        this.form = response.data
       }).catch((error)=>{
         console.log(error)
       })
@@ -87,6 +82,7 @@ export default {
         withCredentials:true,
         data:this.form
       }).then((response)=>{
+        console.log(response.data)
         alert('edit successfully')
         this.$router.push({
           name:'film_manage'

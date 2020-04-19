@@ -24,6 +24,7 @@ import './assets/js/jquery.lightbox.js'
 Vue.config.productionTip = false
 axios.defaults.withCredentials=true
 Vue.prototype.$axios = axios
+Vue.prototype.$host = 'http://localhost:8080/api'
 Vue.prototype.$qs=qs
 Vue.use(VueSession)
 Vue.use(Vuex)

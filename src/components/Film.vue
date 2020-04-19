@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar/>
+    <navbar position="film"/>
     <!--end header-section-->
     <!--banner-->
 
@@ -156,6 +156,11 @@
         this.getImgNames()
     },
     mounted () {
+      var date = new Date()
+      var year = date.getFullYear()
+      var month = date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1
+      var _date = date.getDate()+1<10?"0"+date.getDate():date.getDate()
+      console.log(year+'-'+month+'-'+_date)
     }
   }
 </script>

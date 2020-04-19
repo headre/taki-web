@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="screen_manage"></navbar>
     <!--end header-section-->
     <!--banner-->
 
@@ -23,11 +23,13 @@
               <form>
 
                 <h5>movieid</h5>
-                <input v-model="form.movieid" type="text">
+                <input v-model="form.movieId" type="text">
                 <h5>Room</h5>
-                <input v-model="form.room" type="text">
+                <input v-model="form.auditoriumId" type="text">
                 <h5>Date</h5>
                 <input v-model="form.date" type="text">
+                <h5>Start Time</h5>
+                <input v-model="form.time" type="text">
                 <br/>
                 <input @click="onsubmint" type="submit" class="btn-success" value="Confirm">
                 <br/><br/><br/>
@@ -66,11 +68,7 @@
       return {
         screenId: 0,
         msg: 'this is film page',
-        form: {
-          movieid: 0,
-          date: '',
-          room: 0
-        }
+        form: {}
       }
     },
     components: {
@@ -84,24 +82,17 @@
           url: '/api/screenings/' + screenId
         }).then((response) => {
           console.log(response.data)
-          this.form.movieid = response.data.movieId
-          this.form.date = response.data.date
-          this.form.room = response.data.auditoriumId
+          this.form=response.data
         }).catch((error) => {
           console.log(error)
         })
       },
       onsubmint () {
-        let sdata={
-          screenId:parseInt(this.form.movieid),
-          date:this.form.date,
-          room:this.form.room
-        }
-        console.log(sdata)
         this.$axios({
           method: 'put',
           url: '/api/screenings/' + this.screenId,
-          data: sdata
+          withCredentials:true,
+          data: this.form
         }).then((response) => {
           console.log(response.data)
           alert('edit successfully')

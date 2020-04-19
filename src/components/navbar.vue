@@ -35,17 +35,17 @@
                     <router-link :to="{name:'film',params:{key:'film'}}">Home</router-link>
                   </li>
                   <li v-if="isLogin=='true'&&position=='film_manage'" class="active">
-                    <router-link :to="{name: 'film_manage',params:{key:'film_manage'}}">Films Manage<span class="sr-only">(current)</span>
+                    <router-link :to="{name: 'film_manage'}">Films Manage<span class="sr-only">(current)</span>
                     </router-link>
                   </li>
                   <li v-if="isLogin=='true'&&position!='film_manage'">
-                    <router-link :to="{name: 'film_manage',params:{key:'film_manage'}}">Films Manage<span class="sr-only">(current)</span>
+                    <router-link :to="{name: 'film_manage'}">Films Manage<span class="sr-only">(current)</span>
                     </router-link>
                   </li>
-                  <li v-if="isLogin=='true'&&position=='screen_manage'" class="active"><router-link :to="{name: 'screen_manage',params:{key:'screen_manage'}}">Screenings Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position!='screen_manage'"><router-link :to="{name: 'screen_manage',params:{key:'screen_manage'}}">Screenings Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position=='orders'" class="active"><router-link :to="{name: 'orders',params:{key:'orders'}}">Orders Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position!='orders'"><router-link :to="{name: 'orders',params:{key:'orders'}}">Orders Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='screen_manage'" class="active"><router-link :to="{name: 'screen_manage'}">Screenings Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='screen_manage'"><router-link :to="{name: 'screen_manage'}">Screenings Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='orders'" class="active"><router-link :to="{name: 'orders'}">Orders Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='orders'"><router-link :to="{name: 'orders'}">Orders Manage</router-link></li>
 
                 </ul>
               </div><!-- /.navbar-collapse -->
@@ -61,10 +61,10 @@
 <script>
   export default {
     name: 'navbar',
+    props:["position"],
     data () {
       return {
         name:'the minion',
-        position: 'home',
         isLogin:'false'
       }
     },
@@ -90,9 +90,6 @@
 
     },
     mounted: function () {
-      if (this.$route.params.key != null) {
-        this.position = this.$route.params.key
-      }
       this.isLogin = localStorage.getItem('isLogin')
       console.log(this.isLogin)
     }

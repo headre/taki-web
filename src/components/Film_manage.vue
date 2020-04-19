@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="film_manage"></navbar>
     <div class="content" style="background-color: #fff">
 
       <div class="content" style="background-color: #999c">

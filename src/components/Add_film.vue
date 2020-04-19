@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="film_manage"></navbar>
     <!--end header-section-->
     <!--banner-->
 

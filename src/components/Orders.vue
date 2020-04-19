@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="orders"></navbar>
     <div class="content" style="background-color: #fff">
 
       <div class="content" style="background-color: #999c">
@@ -63,7 +63,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.createdAt}}</td>
                 <td>{{item.totalCost}}</td>
-                <td>{{item.username}}</td>
+                <td>{{item.userUsername}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -162,6 +162,13 @@
       },
       //查看订单
       View(id){
+        var _this=this
+        _this.$router.push({
+          name:'order_info',
+          query:{
+            id:id
+          }
+        })
 
       },
       btnClick: function (data) { // 页码点击事件

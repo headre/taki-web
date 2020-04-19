@@ -12,10 +12,18 @@ import Film from '../components/Film'
 import orders from '../components/Orders'
 import imageUpload from '../components/imageUpload'
 import testImgU from '../components/testImgU'
+import testrecfunc from '../components/testrecfunc'
+import Order_info from '../components/Order_info'
+import Profile from '../components/Profile'
+import calendar from '../components/calendar'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'*',
+      redirect:'/'
+    },
     {
       path:'/add_film',
       name:'add_film',
@@ -75,6 +83,26 @@ export default new Router({
       path:'/testu',
       name:'testu',
       component:testImgU
+    },
+    {
+      path:'/rec',
+      name:'rec',
+      component:testrecfunc
+    },
+    {
+      path:'/order_info',
+      name:'order_info',
+      component:Order_info
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component:Profile
+    },
+    {
+      path:'/calendar',
+      name:'calendar',
+      component:calendar
     }
   ]
 })

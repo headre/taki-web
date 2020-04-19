@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="screen_manage"></navbar>
     <div class="content" style="background-color: #fff">
 
       <div class="content" style="background-color: #999c">
@@ -26,11 +26,14 @@
           <div class="events"><h3>Screening List</h3>
             <thead>
             <tr>
-              <th><a href="#">
-                <button class="btn-warning">Today</button>
+              <th><a>
+                <button @click="setAll" class="btn-warning">All</button>
               </a></th>
-              <th><a href="#">
-                <button class="btn-warning">Tomorrow</button>
+              <th><a>
+                <button @click="setToday" class="btn-warning">Today</button>
+              </a></th>
+              <th><a >
+                <button @click="setTomorrow" class="btn-warning">Tomorrow</button>
               </a></th>
               &nbsp &nbsp &nbsp &nbsp &nbsp
               <router-link :to="{name:'add_screen'}">
@@ -144,6 +147,8 @@
         message: 'cinema',
         screenings: [],
         movies: [],
+        date:null,
+        whatToShow:"all",
       }
     }
     ,
@@ -152,6 +157,16 @@
       navbar
     },
     methods: {
+      allOrDate(mode,params){
+        switch (mode) {
+            case "all":
+              this.getScreenData(params)
+              break
+            case "search":
+              this.searchScreen(params)
+              break
+        }
+      },
       getScreenData (index) {
         var _this = this
         _this.$axios({
@@ -170,6 +185,26 @@
           .catch(function (error) {
             console.log(error)
           })
+      },
+      searchScreen(index){
+        console.log(this.date)
+        var _this = this
+        _this.$axios({
+          method:'get',
+          url:'/api/screenings/search',
+          params:{
+            q:this.date,
+            p:index,
+            s:10
+          }
+        }).then(function (response) {
+          _this.screenings = response.data.screenings.content
+          _this.all = response.data.screenings.totalPages// 总页数
+          _this.cur = response.data.screenings.number+1
+          _this.totalPage = response.data.screenings.totalPages
+        }).catch((error)=>{
+          console.log(error)
+        })
       },
       Delete (id) {
         var _this = this
@@ -194,39 +229,33 @@
             console.log(error)
           })
       },
-      // 请求数据（被getScreenData代替）
-      /*
-      dataListFn: function (index) {
-        this.$axios.get('',
-          {
-            params: {
-              page: index,
-              limit: '6',
-              state: 0
-            }
-          }).then((res) => {
-          if (res.data.message === 'success') {
-            this.dataList = []
-            for (let i = 0; i < res.data.data.length; i++) {
-              this.dataList.push(res.data.data[i])
-            }
-            this.all = res.data.totalPage// 总页数
-            this.cur = res.data.pageNum
-            this.totalPage = res.data.totalPage
-          }
-        })
-      },*/
       // 分页
       btnClick: function (data) { // 页码点击事件
         if (data !== this.cur) {
           this.cur = data
         }
         // 根据点击页数请求数据
-        this.getScreenData(this.cur)
+        this.allOrDate(this.whatToShow,this.cur)
       },
       pageClick: function () {
         // 根据点击页数请求数据
-        this.getScreenData(this.cur)
+        this.allOrDate(this.whatToShow,this.cur)
+      },
+      setToday(){
+        let date = new Date()
+        this.whatToShow="search"
+        this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+        this.searchScreen(1)
+      },
+      setTomorrow(){
+        let date = new Date()
+        this.whatToShow="search"
+        this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate()+1)
+        this.searchScreen(1)
+      },
+      setAll(){
+        this.whatToShow="all"
+        this.getScreenData(1)
       }
     },
     computed: {

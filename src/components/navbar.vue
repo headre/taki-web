@@ -8,8 +8,8 @@
           </div>
           <div class="phone">
             <h5><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>+86-***-****-****</h5>
-            <div v-if="isLogin=='false'"><button @click="changeStatus">login</button> </div>
             <div v-if="isLogin=='true'"><button @click="logout">logout</button> </div>
+            <div v-else><button @click="changeStatus">login</button> </div>
           </div>
           <div class="clearfix"></div>
         </div>
@@ -70,10 +70,10 @@
     },
     methods: {
       changeStatus(){
-        if(this.status=='login'){
-          this.status='logout';
+        if(this.isLogin==='true'){
+          this.isLogin='false';
         }else{
-          this.status='login';
+          this.isLogin='true';
           var _this = this
           _this.$router.push({
             name:'login'

@@ -7,6 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 import VueSession from 'vue-session'
 import Vuex from 'vuex'
+import echarts from 'echarts'
 
 import store from '../store'
 import 'jquery'
@@ -26,6 +27,7 @@ axios.defaults.withCredentials=true
 Vue.prototype.$axios = axios
 Vue.prototype.$host = 'http://localhost:8080/api'
 Vue.prototype.$qs=qs
+Vue.prototype.$echarts = echarts
 Vue.use(VueSession)
 Vue.use(Vuex)
 

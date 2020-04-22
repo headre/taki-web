@@ -1,148 +1,305 @@
 <template>
   <div>
     <navbar></navbar>
-   <div class="content" style="background-color: #fff">
+    <div class="content" style="background-color: #fff">
 
-   <div class="content" style="background-color: #999c">
-   				<div class="welcome">
-   					<div class="container">
-   							<div class="welcome-grids">
-   								<div class="welcome-grid1">
-   									<h2 class="cinema_h2">Overall Profile</h2>
-   								</div>
+      <div class="content" style="background-color: #999c">
+        <div class="welcome">
+          <div class="container">
+            <div class="welcome-grids">
+              <div class="welcome-grid1">
+                <h2 class="cinema_h2">Overall Profile</h2>
+              </div>
 
-   								<div class="clearfix"></div>
-   							</div>
-   					</div>
-   				</div>
-   	</div>
-
-
-    <div class="container">
-<div class="contact-grids">
-    						<div class="col-md-12 contact-right">
-                  <br /><br /><br />
-                  <table class="table" cellspacing="0" border="3" style="border-collapse">
-                    <thead>
-                      <tr>
-                        <th width="20%">Poster</th>
-                        <th width="10%">Sold</th>
-                        <th width="10%">price</th>
-                        <th width="10%">Date</th>
-                        <th width="10%">Filmnamme</th>
-                        <th width="10%">Popularity</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <a class="mask" href="#"><img src="../images/inception.jpg" class="img-responsive zoom-img" alt="/" title="image-name"></a>
-                        </td>
-                        <td>
-                          <p>512</p><br />
-                        </td>
-                        <td>
-                          <p>.....</p><br />
-                        </td>
-                        <td>
-                          <p>2020/2/3</p><br />
-                        </td>
-                        <td>
-                          <p>Inception</p><br />
-                        </td>
-                        <td>
-                          <p>32.25yuan</p><br />
-                        </td>
-                      </tr>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-                      <tr>
-                        <td>
-                          <a class="mask" href="#"><img src="../images/gravity.jpg" class="img-responsive zoom-img" alt="/" title="image-name"></a>
-                        </td>
-                        <td>
-                          <p>311</p><br />
-                        </td>
-                        <td>
-                          <p>.....</p><br />
-                        </td>
-                        <td>
-                          <p>2020/2/3</p><br />
-                        </td>
-                        <td>
-                          <p>Gravity</p><br />
-                        </td>
-                        <td>
-                          <p>32.25yuan</p><br />
-                        </td>
-                      </tr>
+      <div class="container">
+        <div class="contact-grids">
+          <div class="col-md-12 contact-right">
+            <br/><br/><br/>
+            <div id="myChart" :style="{width: '500px', height: '300px'}"></div>
+            <table class="table" cellspacing="0" border="3">
+              <thead>
+              <tr>
+                <th width="20%">Poster</th>
+                <th width="10%">Sold</th>
+                <th width="10%">price</th>
+                <th width="10%">Date</th>
+                <th width="10%">Filmnamme</th>
+                <th width="10%">Popularity</th>
+              </tr>
+              </thead>
+              <tbody>
 
 
-                      <tr>
-                        <td>
-                          <a class="mask" href="#"><img src="../images/1984.jpeg" class="img-responsive zoom-img" alt="/" title="image-name"></a>
-                        </td>
-                        <td>
-                          <p>123</p><br />
-                        </td>
-                        <td>
-                          <p>.....</p><br />
-                        </td>
-                        <td>
-                          <p>2020/2/3</p><br />
-                        </td>
-                        <td>
-                          <p>1984</p><br />
-                        </td>
-                        <td>
-                          <p>32.25yuan</p><br />
-                        </td>
-                      </tr>
+              <tr v-for="(item,index) in allMovieData" :key="index">
+                <td>
+                  <a class="mask" href="#">
+                    <img v-if="item.cover==null" src="../images/gravity.jpg" class="img-responsive zoom-img" alt="/"
+                         title="image-name">
+                    <img v-else :src="$host+'/file/'+item.cover" class="img-responsive zoom-img" alt="/"
+                         title="image-name"></a>
+                </td>
+                <td>
+                  <div v-for="count in testTakings"><p v-if="count.id==item.id">{{count.data}}</p></div>
+                  <br/>
+                </td>
+                <td>
+                  <p>.....</p><br/>
+                </td>
+                <td>
+                  <p>2020/2/3</p><br/>
+                </td>
+                <td>
+                  <p>{{item.name}}</p><br/>
+                </td>
+                <td>
+                  <div v-for="count in testCounts"><p v-if="count.id==item.id">{{count.data}}</p></div>
+                  <br/>
+                </td>
+              </tr>
 
 
-                    </tbody>
-                  </table>
+              </tbody>
+            </table>
 
-                  <br />
-    						</div>
-    						<div class="clearfix"></div>
-              </div></div>
-   	<!--testimonials-->
+            <br/>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!--testimonials-->
 
-   	<!--testimonials-->
+      <!--testimonials-->
 
 
-
-
-<div class="footer-section" style="background-color:#8a6d3bc2">
+      <div class="footer-section" style="background-color:#8a6d3bc2">
         <div class="container">
           <div class="footer-top">
             <p>Copyright &copy; 2020 </p>
-          </div></div></div>
+          </div>
+        </div>
+      </div>
 
-   	</div>
+    </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import navbar from './navbar'
-export default {
-  name: 'Index',
-  components: {
-    navbar
-  },
-  data () {
+  import navbar from './navbar'
 
-  },
-  methods: {
+  export default {
+    name: 'Index',
+    components: {
+      navbar
+    },
+    data () {
+      return {
+        msg: '',
+        namesA:[],
+        countsA: [],
+        takingsA: [],
+        testCounts: [],
+        testTakings: [],
+        monthDay: [
+          31,
+          28,
+          31,
+          30,
+          31,
+          30,
+          31,
+          31,
+          30,
+          31,
+          30,
+          31
+        ],
+        allMovieData: null,
+        data: null,
+        option: {
+          title: {text: 'yearly revenue'},
+          tooltip: {},
+          legend: {
+            orient:'vertical',
+            data:['takings','counts'],
+            left: '6%',
+            x: 'center',
+            y:'center',
+            padding:[0,0,0,50],
+            itemWidth: 15,
+            itemHeight: 15,
+            textStyle: {
+              color: '#3a6186',
+              fontSize:20,
+            }
+          },
+          xAxis: {
+            data: []
+          },
+          yAxis: {},
+          series: [{
+            name: 'takings',
+            type: 'bar',
+            color: ["#64CDF0", "#F5686F"],
+            label: {
+              show: true,
+              position: "top",
+              formatter: "￥{c}"
+            },
+            data: []
+          },{
+            name:'counts',
+            type:'bar',
+            label: {
+              show:true,
+              position: "top",
+            },
+            data: []
+          }]
+        }
+      }
+    },
+    methods: {
+      getFullYearTaking (movieId) {
+        let today = new Date()
+        let _this = this
+        _this.$axios({
+          url: '/api/tickets/takings',
+          method: 'get',
+          params: {
+            from: today.getFullYear() + '-1-1',
+            to: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            m: movieId
+          }
+        }).then(res => {
+          _this.testTakings.push({id: movieId, data: res.data})
+          _this.takingsA.push(parseFloat(res.data))
+          if(res.data==null||res.data==""){
+            _this.option.series[0].data.push(0)
+          }else {
+            _this.option.series[0].data.push(parseFloat(res.data))
+          }
+        })
+          .catch(error => console.log(error))
+      },
+      getFullYearCounts (movieId) {
+        let today = new Date()
+        let _this = this
+        _this.$axios({
+          url: '/api/tickets/count',
+          method: 'get',
+          params: {
+            from: today.getFullYear() + '-1-1',
+            to: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            m: movieId
+          }
+        }).then(res => {
+          _this.testCounts.push({id: movieId, data: res.data})
+          _this.option.series[1].data.push(parseInt(res.data))
+        })
+          .catch(error => console.log(error))
+      },
+      getWeeklyTakings (month) {
+        let today = new Date()
+        let _this = this
+        for (let i = 0; i < this.monthDay[month]; i++) {
 
+        }
+      },
+      drawLine () {
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        // 绘制图表
+        myChart.setOption(/*{
+          title: {text: '在Vue中使用echarts'},
+          tooltip: {},
+          xAxis: {
+            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+          },
+          yAxis: {},
+          series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }]
+        }*/
+          this.option)
+      },
+    },
+    computed: {
+      getMovieData () {
+        let _this = this
+        _this.$axios({
+          url: '/api/movies/',
+          method: 'get',
+        }).then(res => {
+          _this.allMovieData = res.data.content
+          _this.allMovieData.forEach(function (item, index) {
+            _this.option.xAxis.data.push(item.name)
+            _this.namesA.push(item.name)
+            console.log(item.id)
+            _this.getFullYearTaking(item.id)
+            _this.getFullYearCounts(item.id)
+          })
+        })
+          .catch(error => console.log(error))
+      }
+    },
+    created () {
+    },
+    mounted () {
+      this.getMovieData
+      let today = new Date()
+      let _this = this
+      console.log(this.option)
+      this.drawLine()
+    },
+    watch: {
+      option:{
+        handler (newVal, oldVal) {
+          this.drawLine()
+        },
+        deep: true
+
+      },
+      countsA: {
+        handler (newVal, oldVal) {
+
+        },
+        deep: true
+      },
+      takingsA: {
+        handler (newVal, oldVal) {
+          //this.option.series[0].data = this.takingsA
+        },
+        deep: true
+      },
+      allMovieData: {
+        handler (newVal, oldVal) {
+
+        },
+        deep: true
+      },
+      namesA:{
+        handler (newVal, oldVal) {
+          console.log(this.namesA[3])
+          //this.option.xAxis.data = this.namesA
+        },
+        deep: true
+      }
+    }
   }
-}
 </script>
 
 <style>
-  .profileB{
-   background-color: #000000;
+  .profileB {
+    background-color: #000000;
 
   }
 

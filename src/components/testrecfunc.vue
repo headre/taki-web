@@ -16,7 +16,7 @@
     },
     methods:{
       receivefuc(){
-        this.$refs.child.func1().then(res=>this.data=res.content)
+        this.$refs.child.func1().then(res=>this.data=res)
         console.log(this.data)
       }
     },

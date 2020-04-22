@@ -83,9 +83,14 @@
       logout(){
         localStorage.setItem('isLogin',false)
         this.isLogin = 'false'
-        this.$router.push({
-          path:'/'
+        this.$axios({
+          url:'/api/logout'
+        }).then(res=>{
+          this.$router.push({
+            path:'/'
+          })
         })
+          .catch(error=>console.log(error))
       }
 
     },

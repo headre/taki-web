@@ -8,22 +8,23 @@
 
 <script>
   import Calendar from 'vue-calendar-component'
-
   export default {
     name: 'calendar',
-
+    data(){
+      return{
+        date:null
+      }
+    },
     components: {
       Calendar
     },
     methods: {
       clickDay (data) {
-        console.log(data) //选中某天
+        this.$emit('date',data);
       },
       changeDate (data) {
-        console.log(data) //左右点击切换月份
       },
       clickToday (data) {
-        console.log(data) // 跳到了本月
       }
     }
 

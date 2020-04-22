@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': { 
+      '/api': {
               target: 'http://106.12.203.34:8080', //源地址，这个是本地接口配置的域名
               changeOrigin: true, //改变源
               pathRewrite: {

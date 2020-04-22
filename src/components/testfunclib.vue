@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    {{content}}
+  </div>
 </template>
 
 <script>
@@ -7,20 +9,32 @@
     name: 'testfunclib',
     data(){
       return{
+        func2(){
+          let _this = this
+          return _this.$axios.get('/api/movies').then((response) => {
+            console.log(response.data)
+            return response.data
+          }).catch((error) => {
+            console.log(error)
+          })
+
+        },
         content:'content'
       }
     },
     methods:{
-      func1: async function (){
+      func1(){
         let _this = this
-        await _this.$axios.get('/api/movies').then((response) => {
-          this.content = response.data
-          console.log('success')
+        return _this.$axios.get('/api/movies').then((response) => {
+          console.log(response.data)
+          return response.data
         }).catch((error) => {
           console.log(error)
         })
-        return this.content
-      }
+      },
+    },
+    mounted () {
+      this.func2().then(res=>{this.content=res})
     }
   }
 </script>

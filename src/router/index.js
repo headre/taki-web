@@ -13,6 +13,7 @@ import orders from '../components/Orders'
 import imageUpload from '../components/imageUpload'
 import testImgU from '../components/testImgU'
 import testrecfunc from '../components/testrecfunc'
+import testfunclib from '../components/testfunclib'
 import Order_info from '../components/Order_info'
 import Profile from '../components/Profile'
 import calendar from '../components/calendar'
@@ -103,6 +104,11 @@ export default new Router({
       path:'/calendar',
       name:'calendar',
       component:calendar
+    },
+    {
+      path:'/funclib',
+      name:'funclib',
+      component:testfunclib
     }
   ]
 })

@@ -35,6 +35,16 @@
               <th><a >
                 <button @click="setTomorrow" class="btn-warning">Tomorrow</button>
               </a></th>
+              <th>
+              <div class="dropdown">
+                <button class="btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">More Dates
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" data-stopPropagation="true">
+                  <calendar @date = "setDate"/>
+              </ul>
+              </div>
+              </th>
               &nbsp &nbsp &nbsp &nbsp &nbsp
               <router-link :to="{name:'add_screen'}">
                 <button class="btn-warning">Add a screen</button>
@@ -137,6 +147,13 @@
 <script type="text/javascript">
   import navbar from './navbar'
   import footerbar from './footerbar'
+  import calendar from './calendar'
+
+
+  $("body").on('click','[data-stopPropagation]',function (e) {
+    e.stopPropagation();
+  });
+
   export default {
     name: 'screen_manage',
     data(){
@@ -153,6 +170,7 @@
     }
     ,
     components: {
+      calendar,
       footerbar ,
       navbar
     },
@@ -256,6 +274,11 @@
       setAll(){
         this.whatToShow="all"
         this.getScreenData(1)
+      },
+      setDate(data){
+        let date = new Date(data);
+        this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+        this.searchScreen(1)
       }
     },
     computed: {

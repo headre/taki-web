@@ -20,6 +20,9 @@ import calendar from '../components/calendar'
 import auditorium_edit from '../components/Edit_auditorium'
 import auditoriums_manage from '../components/Auditoriums_manage'
 import Add_auditorium from '../components/Add_auditorium'
+import Add_Seats from '../components/Add_Seats'
+import Edit_seats from '../components/Edit_seats'
+import Seats_manage from '../components/Seats_manage'
 Vue.use(Router)
 
 export default new Router({
@@ -126,17 +129,37 @@ export default new Router({
       path:'/auditoriums_manage',
       name:'auditoriums_manage',
       component: auditoriums_manage,
+      meta:{requireAuth:true}
     },
     {
       path:'/auditorium_edit',
       name:'auditorium_edit',
       component: auditorium_edit,
+      meta:{requireAuth:true}
     },
     {
       path:'/add_auditorium',
       name:'add_auditorium',
       component: Add_auditorium,
       meta:{requireAuth:true}
+    },
+    {
+      path: '/seats_manage',
+      name: 'seats_manage',
+      component: Seats_manage,
+      meta: {requireAuth: true}
+    },
+    {
+      path: '/seats_edit',
+      name:'seats_edit',
+      component: Edit_seats,
+      meta: {requireAuth: true}
+    },
+    {
+      path: '/add_seat',
+      name: 'add_seat',
+      component: Add_Seats,
+      meta: {requireAuth: true}
     }
   ]
 })

@@ -9,7 +9,7 @@
         <div class="container">
           <div class="welcome-grids">
             <div class="welcome-grid1">
-              <h2 class="cinema_h2">Edit the auditorium</h2>
+              <h2 class="cinema_h2">Edit the seat</h2>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -22,20 +22,16 @@
             <div class="col-md-12 contact-right">
               <form>
 
-                <h5>auditoriumsId</h5>
-                <input v-model="form.id" type="text">
-                <h5>name</h5>
-                <input v-model="form.name" type="text">
-                <h5>rows </h5>
-                <input v-model="form.numRows" type="text">
-                <h5>cols</h5>
-                <input v-model="form.numCols" type="text">
-                <h5>vipExtraPrice</h5>
-                <input v-model="form.vipExtraPrice" type="text">
+                <h5>row</h5>
+                <input v-model="form.row" type="text">
+                <h5>col</h5>
+                <input v-model="form.col" type="text">
+                <h5>isVip </h5>
+                <input v-model="form.isVip" type="text">
                 <br/>
                 <input @click="onsubmint" type="submit" class="btn-success" value="Confirm">
                 <br/><br/><br/>
-                <router-link :to="{name:'auditoriums_manage'}"><a class="button">Cancle</a>
+                <router-link :to="{name:'seats_manage'}"><a class="button">Cancle</a>
                 </router-link>
               </form>
 
@@ -65,11 +61,10 @@
   }
 
   export default {
-    name: 'auditorium_edit',
+    name: 'seats_edit',
     data () {
       return {
-        auditoriumsId: 0,
-        msg: 'this is film page',
+        seatId: 0,
         form: {}
       }
     },
@@ -78,10 +73,10 @@
       navbar
     },
     methods: {
-      getScreenData (auditoriumsID) {
+      getSeatData (seatId) {
         this.$axios({
           method: 'get',
-          url: '/api/auditoriums/' + auditoriumsID
+          url: '/api/seats/' + seatId
         }).then((response) => {
           console.log(response.data)
           this.form=response.data
@@ -90,18 +85,18 @@
         })
       },
       onsubmint () {
-        const sdata = {"name":this.form.name,"numRows":parseInt(this.form.numRows),"numCols":parseInt(this.form.numCols),"vipExtraPrice":this.form.vipExtraPrice }
+        const sdata = {"row":parseInt(this.form.row),"col":parseInt(this.form.col),"isVip":this.form.isVip }
         console.log(sdata)
         this.$axios({
           method: 'put',
-          url: '/api/auditoriums/' + this.auditoriumsId,
+          url: '/api/seats/' + this.seatId,
           withCredentials:true,
           data: sdata
         }).then((response) => {
           console.log(response.data)
           alert('edit successfully')
           this.$router.push({
-            name: 'auditoriums_manage'
+            name: 'seats_manage'
           })
         }).catch((error) => {
           console.log(error)
@@ -110,13 +105,13 @@
       },
     },
     created: function () {
-      if (this.$route.query.auditoriumsId != null) {
-        this.auditoriumsId = this.$route.query.auditoriumsId
+      if (this.$route.query.seatId != null) {
+        this.seatId = this.$route.query.seatId
       } else {
         console.log('null')
       }
-      console.log(this.auditoriumsId)
-      this.getScreenData(this.auditoriumsId)
+      console.log(this.seatId)
+      this.getSeatData(this.seatId)
     }
   }
 </script>

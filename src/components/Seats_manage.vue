@@ -8,7 +8,7 @@
           <div class="container">
             <div class="welcome-grids">
               <div class="welcome-grid1">
-                <h2 class="cinema_h2">auditoriums Management</h2>
+                <h2 class="cinema_h2">Seats Management</h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -23,14 +23,12 @@
       <div class="container" style="margin-top: 2%">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <div class="events"><h3>auditoriums List</h3>
+          <div class="events"><h3>Seats List of Room {{auditoriumsId}}</h3>
             <thead>
             <tr>
-              <router-link :to="{name:'add_auditorium'}">
-                <button class="btn-warning">add_auditorium</button>
+              <router-link :to="{name:'add_seats',query:{auditoriumsId:auditoriumsId}}">
+                <button class="btn-warning">Add a seat</button>
               </router-link>
-              <!--  <li><router-link :to="{name: 'Add_film',params:{key:'add_film'}}">Add<span class="sr-only">(current)</span>
-                </li> -->
               <th></th>
               <th></th>
               <th></th>
@@ -53,20 +51,14 @@
                   <button class="btn btn-primary">Id</button>
                 </th>
                 <th>
-                  <button class="btn btn-primary">Name</button>
+                  <button class="btn btn-primary">row</button>
                 </th>
                 <th>
-                  <button class="btn btn-primary">rows</button>
+                  <button class="btn btn-primary">col</button>
                 </th>
                 <th>
-                  <button class="btn btn-primary">cols</button>
+                  <button class="btn btn-primary">Vip</button>
                 </th>
-                <th>
-                  <button class="btn btn-primary">vipExtraPrice</button>
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -82,13 +74,11 @@
               </thead>
 
               <tbody>
-              <tr v-for="item in auditoriums">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.numRows}}</td>
-                <td>{{item.numCols}}</td>
-                <td>{{item.vipExtraPrice}}</td>
-                <td></td>
+              <tr v-for="item in seats">
+                <td>Room {{item.id}}</td>
+                <td>{{item.row}}</td>
+                <td>{{item.col}}</td>
+                <td>{{item.isVip}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -99,49 +89,44 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <router-link :to="{name:'seats_manage',query:{auditoriumsId:item.id}}">
-                    <button class="btn btn-primary">View</button>
-                  </router-link>
-                </td>
-                <td>
-                  <router-link :to="{name:'auditorium_edit',query:{auditoriumsId:item.id}}">
+                  <router-link :to="{name:'seats_edit',query:{seatId:item.id}}">
                     <button class="btn btn-primary">Edit</button>
                   </router-link>
                 </td>
                 <td>
-                  <button @click="Delete(item.id) " class="btn btn-primary">Delete</button>
+                  <button @click="Delete(item.id)" class="btn btn-primary">Delete</button>
                 </td>
               </tr>
-
               </tbody>
             </table>
-          </div>
-          <div class="col-md-1"></div>
 
 
+
+          </div><div class="col-md-1"></div>
         </div>
       </div>
 
-
-      <footerbar></footerbar>
-
+      <footerbar/>
 
     </div>
   </div>
 </template>
 
-<script>
+<script type="text/javascript">
   import navbar from './navbar'
   import footerbar from './footerbar'
+  import calendar from './calendar'
+
 
   export default {
-    name: 'auditoriums_manage',
-    data () {
-      return {
-        message: 'cinema',
-        auditoriums: []
+    name: 'seats_manage',
+    data(){
+      return{
+        auditoriumsId:0,
+        seats: []
       }
-    },
+    }
+    ,
     components: {
       footerbar ,
       navbar
@@ -151,10 +136,10 @@
         var _this = this
         _this.$axios({
           method:'get',
-          url:'/api/auditoriums',
+          url:'/api/auditoriums/'+this.auditoriumId+'/seats',
         })
           .then(function (response) {
-            _this.auditoriums = response.data
+            _this.seats = response.data
           })
           .catch(function (error) {
             console.log(error)
@@ -165,7 +150,7 @@
         var _this = this
         _this.$axios({
           method: 'delete',
-          url: '/api/auditoriums/' + id
+          url: '/api/seats/' + id
         }).then((response) => {
           alert('delete successfully')
           _this.$router.go(0)
@@ -174,13 +159,15 @@
         })
       },
     },
-    computed:{
-    },
     mounted () {
+      if (this.$route.query.auditoriumsId != null) {
+        this.auditoriumsId = this.$route.query.auditoriumsId
+      } else {
+        console.log('null')
+      }
       var _this = this
       _this.getData()
     }
-
   }
 </script>
 
@@ -230,4 +217,6 @@
     margin: 0px 4px;
     font-size: 12px;
   }
+
 </style>
+

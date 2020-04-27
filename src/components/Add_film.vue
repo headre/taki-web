@@ -105,7 +105,7 @@
       },
       updatePoster(poster){
         this.poster=poster
-      }
+      },
     },
     components: {
       testImgU,

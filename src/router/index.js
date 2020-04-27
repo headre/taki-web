@@ -28,22 +28,26 @@ export default new Router({
     {
       path:'/add_film',
       name:'add_film',
-      component:Add_film
+      component:Add_film,
+      meta:{requireAuth:true}
     },
     {
       path:'/add_screen',
       name:'add_screen',
-      component:Add_screen
+      component:Add_screen,
+      meta:{requireAuth:true}
     },
     {
       path:'/edit_film',
       name:'edit_film',
-      component:Edit_film
+      component:Edit_film,
+      meta:{requireAuth:true}
     },
     {
       path:'/edit_screen',
       name:'edit_screen',
-      component:Edit_screen
+      component:Edit_screen,
+      meta:{requireAuth:true}
     },
     {
       path:'/film_look',
@@ -53,7 +57,8 @@ export default new Router({
     {
       path:'/film_manage',
       name:'film_manage',
-      component:Film_manage
+      component:Film_manage,
+      meta:{requireAuth:true}
     },
     {
       path:'/login',
@@ -63,7 +68,8 @@ export default new Router({
     {
       path:'/screen_manage',
       name:'screen_manage',
-      component:Screen_manage
+      component:Screen_manage,
+      meta:{requireAuth:true}
     },
     {
       path:'/',
@@ -73,7 +79,8 @@ export default new Router({
     {
       path:'/orders',
       name:'orders',
-      component:orders
+      component:orders,
+      meta:{requireAuth:true}
     },
     {
       path:'/upload',
@@ -93,12 +100,14 @@ export default new Router({
     {
       path:'/order_info',
       name:'order_info',
-      component:Order_info
+      component:Order_info,
+      meta:{requireAuth:true}
     },
     {
       path:'/profile',
       name:'profile',
-      component:Profile
+      component:Profile,
+      meta:{requireAuth:true}
     },
     {
       path:'/calendar',

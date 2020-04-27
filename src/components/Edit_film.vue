@@ -28,6 +28,7 @@
               	<input v-model="form.duration" type="text" style="color:#000">
               	<h5 style="color:#fff">blurb</h5>
               	<textarea v-model="form.blurb" style="color:#000"></textarea>
+                <test-img-u @getName="updatePoster" ref="imgupload"></test-img-u>
               	<input @click="onsubmint" type="submit" value="Save" >
               </form>
              </div>
@@ -51,6 +52,7 @@
 // import '../js/bootstrap'
 import navbar from './navbar'
 import footerbar from './footerbar'
+import testImgU from './testImgU'
 
 addEventListener('load', function () { setTimeout(hideURLbar, 0) }, false); function hideURLbar () { window.scrollTo(0, 1) }
 export default {
@@ -59,6 +61,7 @@ export default {
     return {
       msg: 'this is film page',
       movieId:0,
+      poster: '',
       form:{
       }
     }
@@ -91,11 +94,16 @@ export default {
         console.log(error)
       })
 
-    }
+    },
+    updatePoster(poster){
+      this.poster=poster
+    },
   },
   components: {
     footerbar,
-    navbar
+    navbar,
+    testImgU,
+
   },
   created: function () {
     if (this.$route.query.movie != null) {

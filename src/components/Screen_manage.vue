@@ -122,9 +122,9 @@
 
             <div class="page-bar">
               <ul>
-                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">Previous</a></li>
-                <li v-if="cur==1"><a class="banclick">Previous</a></li>
-                <li v-for="index in indexs" v-bind:class="{ 'active': cur === index}">
+                <li v-if="cur>0"><a v-on:click="cur--,pageClick()">Previous</a></li>
+                <li v-if="cur==0"><a class="banclick">Previous</a></li>
+                <li v-for="index in indexs" v-bind:class="{ 'active': cur === index-1}">
                   <a v-on:click="btnClick(index)">{{ index }}</a>
                 </li>
                 <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">Next</a></li>
@@ -197,7 +197,7 @@
         }).then(function (response) {
             _this.screenings = response.data.content
             _this.all = response.data.totalPages// 总页数
-            _this.cur = response.data.number+1
+            _this.cur = response.data.number
             _this.totalPage = response.data.totalPages
           })
           .catch(function (error) {
@@ -218,7 +218,7 @@
         }).then(function (response) {
           _this.screenings = response.data.screenings.content
           _this.all = response.data.screenings.totalPages// 总页数
-          _this.cur = response.data.screenings.number+1
+          _this.cur = response.data.screenings.number
           _this.totalPage = response.data.screenings.totalPages
         }).catch((error)=>{
           console.log(error)
@@ -249,8 +249,10 @@
       },
       // 分页
       btnClick: function (data) { // 页码点击事件
-        if (data !== this.cur) {
-          this.cur = data
+        console.log(data)
+        if (data-1 !== this.cur) {
+          this.cur = data-1
+
         }
         // 根据点击页数请求数据
         this.allOrDate(this.whatToShow,this.cur)
@@ -263,22 +265,22 @@
         let date = new Date()
         this.whatToShow="search"
         this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
-        this.searchScreen(1)
+        this.searchScreen(0)
       },
       setTomorrow(){
         let date = new Date()
         this.whatToShow="search"
         this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate()+1)
-        this.searchScreen(1)
+        this.searchScreen(0)
       },
       setAll(){
         this.whatToShow="all"
-        this.getScreenData(1)
+        this.getScreenData(0)
       },
       setDate(data){
         let date = new Date(data);
         this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
-        this.searchScreen(1)
+        this.searchScreen(0)
       }
     },
     computed: {
@@ -315,12 +317,13 @@
           ar.push(left)
           left++
         }
+        console.log(ar)
         return ar
       }
     },
     mounted () {
       this.getMovieData();
-      this.getScreenData(1);
+      this.getScreenData(0);
     }
   }
 </script>

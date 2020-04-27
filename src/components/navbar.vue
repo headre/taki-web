@@ -81,7 +81,7 @@
         }
       },
       logout(){
-        localStorage.setItem('isLogin',false)
+        localStorage.setItem('isLogin','false')
         this.isLogin = 'false'
         this.$axios({
           url:'/api/logout'

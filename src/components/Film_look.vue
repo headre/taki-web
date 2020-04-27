@@ -13,15 +13,13 @@
           <div class="col-md-8 welcome-grid1">
             <img :src="$host+'/file/'+img" class="img-responsive" alt="">
             <br />
-            <div class="col-md-6">
+            <div class="col-md-8">
               <h2>{{textData.name}}</h2>
-              <br/>
-				  <ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/> 
-				  <div class="col-md-2">
-				  <router-link :to="{name:'film',params:{key:'film'}}"> <a class="button">Return</a></router-link>
-				  </div>
+              <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>
+
+              <router-link :to="{name:'film',params:{key:'film'}}"> <a class="button">Return</a></router-link>
             </div>
-            
+            <div class="col-md-6"></div>
           </div>
 
           <div class="clearfix"></div>

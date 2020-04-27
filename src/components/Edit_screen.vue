@@ -30,6 +30,8 @@
                 <input v-model="form.date" type="text">
                 <h5>Start Time</h5>
                 <input v-model="form.time" type="text">
+                <h5>Finish Time</h5>
+                <input v-model="form.finishTime" type="text">
                 <br/>
                 <input @click="onsubmint" type="submit" class="btn-success" value="Confirm">
                 <br/><br/><br/>

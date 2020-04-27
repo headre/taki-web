@@ -50,6 +50,9 @@
               <thead>
               <tr>
                 <th>
+                  <button class="btn btn-primary">Id</button>
+                </th>
+                <th>
                   <button class="btn btn-primary">Name</button>
                 </th>
                 <th></th>
@@ -71,6 +74,7 @@
 
               <tbody>
               <tr v-for="(item,index) in movies" :key="index">
+                <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td></td>
                 <td></td>

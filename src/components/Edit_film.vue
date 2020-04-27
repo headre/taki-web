@@ -79,24 +79,12 @@ export default {
       })
     },
     onsubmint(){
-      this.$axios({
-        method:'put',
-        url:'/api/movies/'+this.movieId,
-        withCredentials:true,
-        data:this.form
-      }).then((response)=>{
-        console.log(response.data)
-        alert('edit successfully')
-        this.$router.push({
-          name:'film_manage'
-        })
-      }).catch((error)=>{
-        console.log(error)
-      })
-
+      this.$refs.imgupload.upload()
     },
     updatePoster(poster){
       this.poster=poster
+      this.form.cover = poster
+      console.log(this.form)
     },
   },
   components: {
@@ -113,6 +101,24 @@ export default {
     }
     console.log(this.movieId)
     this.getMovieData(this.movieId)
+  },
+  watch:{
+    poster(newval,oldValue){
+      this.$axios({
+        method:'put',
+        url:'/api/movies/'+this.movieId,
+        withCredentials:true,
+        data:this.form
+      }).then((response)=>{
+        console.log(response.data)
+        alert('edit successfully')
+        this.$router.push({
+          name:'film_manage'
+        })
+      }).catch((error)=>{
+        console.log(error)
+      })
+    },
   }
 }
 </script>

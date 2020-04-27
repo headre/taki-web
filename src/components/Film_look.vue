@@ -11,13 +11,14 @@
         <div class="welcome-grids">
          <div class="col-md-2"></div>
           <div class="col-md-8 welcome-grid1">
-            <img :src="$host+'/file/'+img" class="img-responsive" alt="">
+            <img v-if="img==null" src="../images/gravity.jpg" width="400">
+            <img v-else :src="$host+'/file/'+img" class="img-responsive" alt="">
             <br />
-            <div class="col-md-8">
+            <div v-if="textData!=null" class="col-md-8">
               <h2>{{textData.name}}</h2>
               <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>
 
-              <router-link :to="{name:'film',params:{key:'film'}}"> <a class="button">Return</a></router-link>
+              <router-link :to="{name:backPath}"> <a class="button">Return</a></router-link>
             </div>
             <div class="col-md-6"></div>
           </div>
@@ -44,6 +45,7 @@ export default {
   name: 'Film',
   data () {
     return {
+      backPath:'film',
       msg: 'this is film page',
       id:-1,
       textData:null,
@@ -77,6 +79,10 @@ export default {
     navbar
   },
   mounted(){
+    if (this.$route.params.path != null) {
+      this.backPath = this.$route.params.path
+    }
+    console.log(this.backPath)
     this.getMovieData
   },
 }

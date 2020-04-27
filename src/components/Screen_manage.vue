@@ -74,10 +74,13 @@
                   <button class="btn btn-primary">Time</button>
                 </th>
                 <th>
-                  <button class="btn btn-primary">Movie</button>
+                  <button class="btn btn-primary">Date</button>
                 </th>
                 <th>
                   <button class="btn btn-primary">Name</button>
+                </th>
+                <th>
+                  <button class="btn btn-primary">Room</button>
                 </th>
                 <th></th>
                 <th></th>
@@ -99,6 +102,7 @@
                 <td>{{item.time}}</td>
                 <td>{{item.date}}</td>
                 <td>{{filterName(item.movieId)}}</td>
+                <td>{{item.auditoriumId}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

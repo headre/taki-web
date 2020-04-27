@@ -22,7 +22,7 @@
               <div class="slideshow">
                 <transition-group tag="ul" name="image">
                   <li v-for="(img, index) in imgArray" v-show="index===mark" :key="index">
-                    <router-link :to="{name:'film_look',query:{key:img.id}}">
+                    <router-link :to="{name:'film_look',query:{key:img.id},params:{path:'film'}}">
                       <!-- 如果当前图片名为null，使用本地图片-->
                      <img v-if="img.cover==null" src="../images/gravity.jpg">
                       <img v-else :src="$host+'/file/'+img.cover">

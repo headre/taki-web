@@ -41,8 +41,6 @@ new Vue({
 })
 //路由守卫
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  console.log(from);
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
     if(JSON.parse(localStorage.getItem('isLogin'))){ //判断本地是否存在access_token
       next();

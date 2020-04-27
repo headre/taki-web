@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar position="screen_manage"></navbar>
+    <navbar position="auditoriums"></navbar>
     <!--end header-section-->
     <!--banner-->
 
@@ -9,7 +9,7 @@
         <div class="container">
           <div class="welcome-grids">
             <div class="welcome-grid1">
-              <h2 class="cinema_h2">Edit the screen</h2>
+              <h2 class="cinema_h2">Edit the auditorium</h2>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -22,22 +22,20 @@
             <div class="col-md-12 contact-right">
               <form>
 
-                <h5>movieid</h5>
-                <input v-model="form.movieId" type="text">
-                <h5>Room</h5>
-                <h5>Rooms available: </h5>
-                <li v-for="id in rooms">{{id.id}}</li>
-                <input v-model="form.auditoriumId" type="text">
-                <h5>Date</h5>
-                <input v-model="form.date" type="text">
-                <h5>Start Time</h5>
-                <input v-model="form.time" type="text">
-                <h5>Finish Time</h5>
-                <input v-model="form.finishTime" type="text">
+                <h5>auditoriumsId</h5>
+                <input v-model="form.id" type="text">
+                <h5>name</h5>
+                <input v-model="form.name" type="text">
+                <h5>rows </h5>
+                <input v-model="form.numRows" type="text">
+                <h5>cols</h5>
+                <input v-model="form.numCols" type="text">
+                <h5>vipExtraPrice</h5>
+                <input v-model="form.vipExtraPrice" type="text">
                 <br/>
                 <input @click="onsubmint" type="submit" class="btn-success" value="Confirm">
                 <br/><br/><br/>
-                <router-link :to="{name:'screen_manage',params:{key:'screen_manage'}}"><a class="button">Cancle</a>
+                <router-link :to="{name:'auditoriums_manage'}"><a class="button">Cancle</a>
                 </router-link>
               </form>
 
@@ -67,12 +65,11 @@
   }
 
   export default {
-    name: 'edit_screen',
+    name: 'edit_auditorium',
     data () {
       return {
-        screenId: 0,
+        auditoriumsId: 0,
         msg: 'this is film page',
-        rooms:null,
         form: {}
       }
     },
@@ -81,10 +78,10 @@
       navbar
     },
     methods: {
-      getScreenData (screenId) {
+      getScreenData (auditoriumsID) {
         this.$axios({
           method: 'get',
-          url: '/api/screenings/' + screenId
+          url: '/api/auditoriums/' + auditoriumsID
         }).then((response) => {
           console.log(response.data)
           this.form=response.data
@@ -93,43 +90,33 @@
         })
       },
       onsubmint () {
+        const sdata = {"name":this.form.name,"numRows":parseInt(this.form.numRows),"numCols":parseInt(this.form.numCols),"vipExtraPrice":this.form.vipExtraPrice }
+        console.log(sdata)
         this.$axios({
           method: 'put',
-          url: '/api/screenings/' + this.screenId,
+          url: '/api/auditoriums/' + this.auditoriumsId,
           withCredentials:true,
-          data: this.form
+          data: sdata
         }).then((response) => {
           console.log(response.data)
           alert('edit successfully')
           this.$router.push({
-            name: 'screen_manage'
+            name: 'auditoriums_manage'
           })
         }).catch((error) => {
           console.log(error)
         })
 
       },
-      getAuditoriums(){
-        let _this =this
-        _this.$axios({
-          method:'get',
-          url:'/api/auditoriums',
-        }).then(response=>{
-          this.rooms = response.data
-        }).catch(error=>{
-          console.log(error)
-        })
-      }
     },
     created: function () {
-      if (this.$route.query.screenId != null) {
-        this.screenId = this.$route.query.screenId
+      if (this.$route.query.auditoriumsId != null) {
+        this.auditoriumsId = this.$route.query.auditoriumsId
       } else {
         console.log('null')
       }
-      console.log(this.screenId)
-      this.getScreenData(this.screenId)
-      this.getAuditoriums()
+      console.log(this.auditoriumsId)
+      this.getScreenData(this.auditoriumsId)
     }
   }
 </script>

@@ -17,6 +17,9 @@ import testfunclib from '../components/testfunclib'
 import Order_info from '../components/Order_info'
 import Profile from '../components/Profile'
 import calendar from '../components/calendar'
+import auditorium_edit from '../components/Edit_auditorium'
+import auditoriums_manage from '../components/Auditoriums_manage'
+import Add_auditorium from '../components/Add_auditorium'
 Vue.use(Router)
 
 export default new Router({
@@ -118,6 +121,22 @@ export default new Router({
       path:'/funclib',
       name:'funclib',
       component:testfunclib
+    },
+    {
+      path:'/auditoriums_manage',
+      name:'auditoriums_manage',
+      component: auditoriums_manage,
+    },
+    {
+      path:'/auditorium_edit',
+      name:'auditorium_edit',
+      component: auditorium_edit,
+    },
+    {
+      path:'/add_auditorium',
+      name:'add_auditorium',
+      component: Add_auditorium,
+      meta:{requireAuth:true}
     }
   ]
 })

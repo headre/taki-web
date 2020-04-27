@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar position="film_manage"></navbar>
+    <navbar position="auditoriums"></navbar>
     <div class="content" style="background-color: #fff">
 
       <div class="content" style="background-color: #999c">
@@ -8,7 +8,7 @@
           <div class="container">
             <div class="welcome-grids">
               <div class="welcome-grid1">
-                <h2 class="cinema_h2">Movies Management</h2>
+                <h2 class="cinema_h2">auditoriums Management</h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -23,11 +23,11 @@
       <div class="container" style="margin-top: 2%">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <div class="events"><h3>Movie List</h3>
+          <div class="events"><h3>auditoriums List</h3>
             <thead>
             <tr>
-              <router-link :to="{name:'add_film',params:{key:'add_film'}}">
-                <button class="btn-warning">Add a movie</button>
+              <router-link :to="{name:'add_auditorium'}">
+                <button class="btn-warning">add_auditorium</button>
               </router-link>
               <!--  <li><router-link :to="{name: 'Add_film',params:{key:'add_film'}}">Add<span class="sr-only">(current)</span>
                 </li> -->
@@ -55,6 +55,15 @@
                 <th>
                   <button class="btn btn-primary">Name</button>
                 </th>
+                <th>
+                  <button class="btn btn-primary">rows</button>
+                </th>
+                <th>
+                  <button class="btn btn-primary">cols</button>
+                </th>
+                <th>
+                  <button class="btn btn-primary">vipExtraPrice</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -73,9 +82,12 @@
               </thead>
 
               <tbody>
-              <tr v-for="(item,index) in movies" :key="index">
+              <tr v-for="item in auditoriums">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
+                <td>{{item.numRows}}</td>
+                <td>{{item.numCols}}</td>
+                <td>{{item.vipExtraPrice}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -87,12 +99,12 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <router-link :to="{name:'film_look',query:{key:item.id},params:{path:'film_manage'}}">
-                    <button class="btn btn-primary">View</button>
+                  <router-link :to="{name:'auditorium_edit',query:{auditoriumsId:item.id}}">
+                    <button class="btn btn-primary">Edit</button>
                   </router-link>
                 </td>
                 <td>
-                  <router-link :to="{name:'edit_film',query:{movie:item.id}}">
+                  <router-link :to="{name:'auditorium_edit',query:{auditoriumsId:item.id}}">
                     <button class="btn btn-primary">Edit</button>
                   </router-link>
                 </td>
@@ -103,18 +115,6 @@
 
               </tbody>
             </table>
-            <div class="page-bar">
-              <ul>
-                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">Previous</a></li>
-                <li v-if="cur==1"><a class="banclick">Previous</a></li>
-                <li v-for="index in indexs" v-bind:class="{ 'active': cur === index}">
-                  <a v-on:click="btnClick(index)">{{ index }}</a>
-                </li>
-                <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">Next</a></li>
-                <li v-if="cur == all"><a class="banclick">Next</a></li>
-                <li><a>total:<i>{{all}}</i>pages</a></li>
-              </ul>
-            </div>
           </div>
           <div class="col-md-1"></div>
 
@@ -123,26 +123,23 @@
       </div>
 
 
-  <footerbar></footerbar>
+      <footerbar></footerbar>
 
 
     </div>
   </div>
 </template>
 
-<script type="text/javascript">
+<script>
   import navbar from './navbar'
   import footerbar from './footerbar'
 
   export default {
-    name: 'film_manage',
+    name: 'auditoriums_manage',
     data () {
       return {
-        all: 6, // 总页数
-        cur: 1, // 当前页码
-        totalPage: 0,// 当前条数
         message: 'cinema',
-        movies: []
+        auditoriums: []
       }
     },
     components: {
@@ -154,18 +151,10 @@
         var _this = this
         _this.$axios({
           method:'get',
-          url:'/api/movies',
-          params:{
-            p:index,
-            s:10
-          }
+          url:'/api/auditoriums',
         })
           .then(function (response) {
-            _this.movies = response.data.content
-            _this.all = response.data.totalPages// 总页数
-            _this.cur = response.data.number+1
-            _this.totalPage = response.data.totalPages
-            console.log(_this.movies)
+            _this.auditoriums = response.data
           })
           .catch(function (error) {
             console.log(error)
@@ -176,7 +165,7 @@
         var _this = this
         _this.$axios({
           method: 'delete',
-          url: '/api/movies/' + id
+          url: '/api/auditoriums/' + id
         }).then((response) => {
           alert('delete successfully')
           _this.$router.go(0)
@@ -184,43 +173,8 @@
           console.log(error)
         })
       },
-      btnClick: function (data) { // 页码点击事件
-        if (data !== this.cur) {
-          this.cur = data
-        }
-        // 根据点击页数请求数据
-        this.getData(this.cur)
-      },
-      pageClick: function () {
-        // 根据点击页数请求数据
-        this.getData(this.cur)
-      },
     },
     computed:{
-      indexs: function () {
-        var left = 1
-        var right = this.all
-        var ar = []
-        if (this.all >= 5) {
-          if (this.cur > 3 && this.cur < this.all - 2) {
-            left = this.cur - 2
-            right = this.cur + 2
-          } else {
-            if (this.cur <= 3) {
-              left = 1
-              right = 5
-            } else {
-              right = this.all
-              left = this.all - 4
-            }
-          }
-        }
-        while (left <= right) {
-          ar.push(left)
-          left++
-        }
-        return ar
-      },
     },
     mounted () {
       var _this = this

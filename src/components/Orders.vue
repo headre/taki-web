@@ -63,7 +63,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.createdAt}}</td>
                 <td>{{item.totalCost}}</td>
-                <td>{{item.userUsername}}</td>
+                <td>{{item.username}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

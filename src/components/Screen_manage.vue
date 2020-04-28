@@ -85,6 +85,9 @@
                 <th>
                   <button class="btn btn-primary">OriginalPrice</button>
                 </th>
+                <th>
+                  <button class="btn btn-primary">Released date</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -107,6 +110,7 @@
                 <td>{{filterName(item.movieId)}}</td>
                 <td>{{item.auditoriumId}}</td>
                 <td>{{item.originalPrice}}</td>
+                <td>{{filterReleasedDate(item.movieId)}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -247,7 +251,7 @@
       },
       getMovieData(){
         var _this = this
-        _this.$axios.get('/api/movies')
+        _this.$axios.get('/api/movies/?s=20')
           .then(function (response) {
             _this.movies = response.data.content
           })
@@ -301,6 +305,17 @@
               }
             })
           return name
+        }
+      },
+      filterReleasedDate(){
+        return function (id) {
+          var date = "name"
+          this.movies.forEach((item,index)=>{
+            if(item.id==id){
+              date = item.releaseDate
+            }
+          })
+          return date
         }
       },
       indexs: function () {

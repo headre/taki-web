@@ -55,6 +55,9 @@
                 <th>
                   <button class="btn btn-primary">Name</button>
                 </th>
+                <th>
+                  <button class="btn btn-primary">ReleaseDate</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -76,6 +79,7 @@
               <tr v-for="(item,index) in movies" :key="index">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
+                <td>{{item.releaseDate}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

@@ -17,6 +17,7 @@
             <br /><div class="col-md-2"></div>
             <div v-if="textData!=null" class="col-md-8">
               <h2>{{textData.name}}</h2>
+              <h3>released in: {{textData.releaseDate}}</h3>
               <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>
 
               <router-link :to="{name:backPath}"> <a class="button">Return</a></router-link>

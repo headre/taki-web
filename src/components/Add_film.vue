@@ -25,6 +25,8 @@
                 <input v-model="movieForm.name" placeholder="input movie's name here" type="text">
                 <h5>duration</h5>
                 <input v-model="movieForm.duration" placeholder="input movie's duration" type="text">
+                <h5>release date</h5>
+                <input v-model="movieForm.releaseDate" placeholder="input movie's release Date" type="text">
                 <h5>blurb</h5>
                 <textarea v-model="movieForm.blurb" placeholder="input movie's description"></textarea>
                 <test-img-u @getName="updatePoster" ref="imgupload"></test-img-u>
@@ -70,6 +72,7 @@
           name: '',
           blurb: '',
           duration: '',
+          releaseDate:''
         }
       }
     },
@@ -87,7 +90,8 @@
         const sdata = {
           'name': this.movieForm.name,
           'blurb': this.movieForm.blurb,
-          'duration': parseInt(this.movieForm.duration)
+          'duration': parseInt(this.movieForm.duration),
+          'releaseDate':this.movieForm.releaseDate
         }
         this.$axios({
           method: 'post',

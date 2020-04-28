@@ -9,11 +9,12 @@
     <div class="welcome">
       <div class="container">
         <div class="welcome-grids">
-         <div class="col-md-2"></div>
-          <div class="col-md-8 welcome-grid1">
+         <div class="col-md-3"></div>
+          <div class="col-md-6 welcome-grid1">
+			 <div class="col-md-2"></div>
             <img v-if="img==null" src="../images/gravity.jpg" width="400">
             <img v-else :src="$host+'/file/'+img" class="img-responsive" alt="">
-            <br />
+            <br /><div class="col-md-2"></div>
             <div v-if="textData!=null" class="col-md-8">
               <h2>{{textData.name}}</h2>
               <br/><ul class="d" style="color:#fff">decription: {{textData.blurb}}.</ul><br/>

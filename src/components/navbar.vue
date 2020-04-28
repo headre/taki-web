@@ -30,14 +30,14 @@
                 <ul class="nav navbar-nav cl-effect-16">
                   <li v-if="position=='film'" class="active"><router-link :to="{name:'film',params:{key:'film'}}">Home</router-link></li>
                   <li v-else><router-link :to="{name:'film',params:{key:'film'}}">Home</router-link></li>
-                  <li v-if="isLogin=='true'&&position=='film_manage'" class="active"><router-link :to="{name: 'film_manage'}">Films Manage<span class="sr-only">(current)</span></router-link></li>
-                  <li v-if="isLogin=='true'&&position!='film_manage'"><router-link :to="{name: 'film_manage'}">Films Manage<span class="sr-only">(current)</span></router-link></li>
-                  <li v-if="isLogin=='true'&&position=='screen_manage'" class="active"><router-link :to="{name: 'screen_manage'}">Screenings Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position!='screen_manage'"><router-link :to="{name: 'screen_manage'}">Screenings Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position=='orders'" class="active"><router-link :to="{name: 'orders'}">Orders Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position!='orders'"><router-link :to="{name: 'orders'}">Orders Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position=='auditoriums'" class="active"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums Manage</router-link></li>
-                  <li v-if="isLogin=='true'&&position!='auditoriums'"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums  Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='film_manage'" class="active"><router-link :to="{name: 'film_manage'}">Films<span class="sr-only">(current)</span></router-link></li>
+                  <li v-if="isLogin=='true'&&position!='film_manage'"><router-link :to="{name: 'film_manage'}">Films<span class="sr-only">(current)</span></router-link></li>
+                  <li v-if="isLogin=='true'&&position=='screen_manage'" class="active"><router-link :to="{name: 'screen_manage'}">Screenings</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='screen_manage'"><router-link :to="{name: 'screen_manage'}">Screenings</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='orders'" class="active"><router-link :to="{name: 'orders'}">Orders</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='orders'"><router-link :to="{name: 'orders'}">Orders</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='auditoriums'" class="active"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='auditoriums'"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums </router-link></li>
                   <li v-if="isLogin=='true'&&position=='takings_counts'" class="active"><router-link :to="{name: 'profile'}">Takings&Counts</router-link></li>
                   <li v-if="isLogin=='true'&&position!='takings_counts'"><router-link :to="{name: 'profile'}">Taking&Counts</router-link></li>
 

@@ -73,7 +73,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <button @click="View(item.id)" class="btn btn-primary">View</button>
+                  <button @click="View(item.id)" class="btn btn-primary" >View</button>
                 </td>
                 <td>
                   <button @click="Delete(item.id)" class="btn btn-primary">Delete</button>

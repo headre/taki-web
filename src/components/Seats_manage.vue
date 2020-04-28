@@ -75,7 +75,7 @@
 
               <tbody>
               <tr v-for="item in seats">
-                <td>Room {{item.id}}</td>
+                <td>{{item.id}}</td>
                 <td>{{item.row}}</td>
                 <td>{{item.col}}</td>
                 <td>{{item.isVip}}</td>
@@ -136,7 +136,7 @@
         var _this = this
         _this.$axios({
           method:'get',
-          url:'/api/auditoriums/'+this.auditoriumId+'/seats',
+          url:'/api/auditoriums/'+this.auditoriumsId+'/seats',
         })
           .then(function (response) {
             _this.seats = response.data
@@ -162,8 +162,10 @@
     mounted () {
       if (this.$route.query.auditoriumsId != null) {
         this.auditoriumsId = this.$route.query.auditoriumsId
+        localStorage.setItem("auditoriumsId",this.auditoriumsId)
+        console.log(this.auditoriumsId)
       } else {
-        console.log('null')
+        this.auditoriumsId = localStorage.getItem("auditoriumsId")
       }
       var _this = this
       _this.getData()

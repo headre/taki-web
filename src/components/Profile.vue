@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar position="takings_counts"></navbar>
     <div class="content" style="background-color: #fff">
 
       <div class="content" style="background-color: #999c">
@@ -22,15 +22,13 @@
         <div class="contact-grids">
           <div class="col-md-12 contact-right">
             <br/><br/><br/>
-            <div id="myChart" :style="{width: '500px', height: '300px'}"></div>
+            <div id="myChart" :style="{width: '1200px', height: '300px'}"></div>
             <table class="table" cellspacing="0" border="3">
               <thead>
               <tr>
                 <th width="20%">Poster</th>
                 <th width="10%">Sold</th>
-                <th width="10%">price</th>
-                <th width="10%">Date</th>
-                <th width="10%">Filmnamme</th>
+                <th width="10%">FilmName</th>
                 <th width="10%">Popularity</th>
               </tr>
               </thead>
@@ -48,12 +46,6 @@
                 <td>
                   <div v-for="count in testTakings"><p v-if="count.id==item.id">{{count.data}}</p></div>
                   <br/>
-                </td>
-                <td>
-                  <p>.....</p><br/>
-                </td>
-                <td>
-                  <p>2020/2/3</p><br/>
                 </td>
                 <td>
                   <p>{{item.name}}</p><br/>
@@ -140,7 +132,11 @@
             }
           },
           xAxis: {
-            data: []
+            data: [],
+            axisLabel:{
+              interval: 0,
+              rotate:-30
+            }
           },
           yAxis: {},
           series: [{
@@ -202,6 +198,7 @@
         }).then(res => {
           _this.testCounts.push({id: movieId, data: res.data})
           _this.option.series[1].data.push(parseInt(res.data))
+          console.log(_this.testCounts)
         })
           .catch(error => console.log(error))
       },
@@ -216,34 +213,22 @@
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'))
         // 绘制图表
-        myChart.setOption(/*{
-          title: {text: '在Vue中使用echarts'},
-          tooltip: {},
-          xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-          },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
-        }*/
-          this.option)
+        myChart.setOption(
+          this.option
+        )
       },
     },
     computed: {
       getMovieData () {
         let _this = this
         _this.$axios({
-          url: '/api/movies/',
+          url: '/api/movies/?s=20',
           method: 'get',
         }).then(res => {
           _this.allMovieData = res.data.content
           _this.allMovieData.forEach(function (item, index) {
             _this.option.xAxis.data.push(item.name)
             _this.namesA.push(item.name)
-            console.log(item.id)
             _this.getFullYearTaking(item.id)
             _this.getFullYearCounts(item.id)
           })
@@ -255,14 +240,13 @@
     },
     mounted () {
       this.getMovieData
-      let today = new Date()
-      let _this = this
       console.log(this.option)
       this.drawLine()
     },
     watch: {
       option:{
         handler (newVal, oldVal) {
+          console.log(this.option.xAxis.data)
           this.drawLine()
         },
         deep: true
@@ -286,13 +270,6 @@
         },
         deep: true
       },
-      namesA:{
-        handler (newVal, oldVal) {
-          console.log(this.namesA[3])
-          //this.option.xAxis.data = this.namesA
-        },
-        deep: true
-      }
     }
   }
 </script>

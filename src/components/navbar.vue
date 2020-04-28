@@ -38,6 +38,8 @@
                   <li v-if="isLogin=='true'&&position!='orders'"><router-link :to="{name: 'orders'}">Orders Manage</router-link></li>
                   <li v-if="isLogin=='true'&&position=='auditoriums'" class="active"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums Manage</router-link></li>
                   <li v-if="isLogin=='true'&&position!='auditoriums'"><router-link :to="{name: 'auditoriums_manage'}">Auditoriums  Manage</router-link></li>
+                  <li v-if="isLogin=='true'&&position=='takings_counts'" class="active"><router-link :to="{name: 'profile'}">Takings&Counts</router-link></li>
+                  <li v-if="isLogin=='true'&&position!='takings_counts'"><router-link :to="{name: 'profile'}">Taking&Counts</router-link></li>
 
                 </ul>
               </div><!-- /.navbar-collapse -->

@@ -92,11 +92,12 @@ export default {
         method:'get',
         url:'/api/orders/'+id
       }).then(res=>{
-        this.order.username = res.data.userUsername
+        console.log(res.data)
+        this.order.username = res.data.username
         this.order.totalcost = res.data.totalCost
         this.order.status = res.data.completed?'completed':'not completed'
         this.order.createdAt = res.data.createdAt
-        this.screenId = res.data.tickets[0].screeningId
+        this.movieId = res.data.tickets[0].screening.movieId
       })
     },
   },

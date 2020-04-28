@@ -27,6 +27,10 @@
                 <input v-model="screenForm.id" placeholder="input movie's id" type="text">
                 <h5>Room</h5>
                 <input v-model="screenForm.room" placeholder="input auditorium's id" type="text">
+                <h5>originalPrice</h5>
+                <input v-model="screenForm.originalPrice" placeholder="input original price" type="text">
+                <h5>discountedMag</h5>
+                <input v-model="screenForm.discountedMag" placeholder="input discounted mag" type="text">
                 <br/><br/>
                 <input @click="on_submit" type="submit" class="btn-success" value="Confirm">
                 <br/><br/>
@@ -59,13 +63,15 @@
         screenForm:{
           id:"",
           date:"",
-          room:""
+          room:"",
+          originalPrice:"",
+          discountedMag:""
         }
       }
     },
     methods:{
       on_submit(){
-        const sdata = {"movieId":parseInt(this.screenForm.id),"date":this.screenForm.date,"auditoriumId":parseInt(this.screenForm.room) }
+        const sdata = {"movieId":parseInt(this.screenForm.id),"date":this.screenForm.date,"auditoriumId":parseInt(this.screenForm.room),"originalPrice":parseFloat(this.screenForm.originalPrice),"discountedMag":parseFloat(this.screenForm.discountedMag) }
 
         console.log(this.screenForm.date)
         this.$axios({

@@ -34,6 +34,10 @@
                 <input v-model="form.time" type="text">
                 <h5>Finish Time</h5>
                 <input v-model="form.finishTime" type="text">
+                <h5>originalPrice</h5>
+                <input v-model="form.originalPrice" type="text">
+                <h5>discountedMag</h5>
+                <input v-model="form.discountedMag" type="text">
                 <br/>
                 <input @click="onsubmint" type="submit" class="btn-success" value="Confirm">
                 <br/><br/><br/>

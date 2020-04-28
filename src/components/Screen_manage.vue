@@ -82,6 +82,9 @@
                 <th>
                   <button class="btn btn-primary">Room</button>
                 </th>
+                <th>
+                  <button class="btn btn-primary">OriginalPrice</button>
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -103,6 +106,7 @@
                 <td>{{item.date}}</td>
                 <td>{{filterName(item.movieId)}}</td>
                 <td>{{item.auditoriumId}}</td>
+                <td>{{item.originalPrice}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

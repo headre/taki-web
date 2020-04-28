@@ -168,7 +168,7 @@
 <style scoped>
 
   .slide {
-    width: 1024px;
+    width: 320px;
     height: 400px;
     margin: 0 auto;
     margin-top: 50px;
@@ -186,8 +186,8 @@
   }
 
   img {
-    width: 1024px;
-    height: 350px;
+    width: 304px;
+    height: 450px;
   }
 
   .bar {

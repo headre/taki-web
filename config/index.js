@@ -12,11 +12,15 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-              target: 'http://106.12.203.34:8080', //源地址，这个是本地接口配置的域名
-              changeOrigin: true, //改变源
+              target: 'https://106.12.203.34:8443', //源地址，这个是本地接口配置的域名
               pathRewrite: {
                 '^/api': '' //路径重写
-              }
+              },
+        changeOrigin: true,
+        secure: false,
+        headers: {
+          Referer: 'https://106.12.203.34:8443'
+        }
             }
     },
 

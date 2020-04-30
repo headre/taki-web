@@ -156,8 +156,8 @@ export default new Router({
       meta: {requireAuth: true}
     },
     {
-      path: '/add_seat',
-      name: 'add_seat',
+      path: '/add_seats',
+      name: 'add_seats',
       component: Add_Seats,
       meta: {requireAuth: true}
     }

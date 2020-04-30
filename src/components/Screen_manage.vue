@@ -55,12 +55,6 @@
               <th></th>
               <th></th>
               <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
             </tr>
             </thead>
 
@@ -95,10 +89,6 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
               </tr>
               </thead>
 
@@ -111,15 +101,6 @@
                 <td>{{item.auditoriumId}}</td>
                 <td>{{item.originalPrice}}</td>
                 <td>{{filterReleasedDate(item.movieId)}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td>
                   <router-link :to="{name:'edit_screen',query:{screenId:item.id}}">
                     <button class="btn btn-primary">Edit</button>

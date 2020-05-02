@@ -84,8 +84,8 @@
 
             <div class="page-bar">
               <ul>
-                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">Previous</a></li>
-                <li v-if="cur==1"><a class="banclick">Previous</a></li>
+                <li v-if="cur>0"><a v-on:click="cur--,pageClick()">Previous</a></li>
+                <li v-if="cur==0"><a class="banclick">Previous</a></li>
                 <li v-for="index in indexs" v-bind:class="{ 'active': cur === index}">
                   <a v-on:click="btnClick(index)">{{ index }}</a>
                 </li>
@@ -138,7 +138,7 @@
           .then(function (response) {
             _this.orders = response.data.content
             _this.all = response.data.totalPages// 总页数
-            _this.cur = response.data.number+1
+            _this.cur = response.data.number
             _this.totalPage = response.data.totalPages
             console.log(_this.orders.content)
           })
@@ -172,8 +172,8 @@
 
       },
       btnClick: function (data) { // 页码点击事件
-        if (data !== this.cur) {
-          this.cur = data
+        if (data-1 !== this.cur) {
+          this.cur = data-1
         }
         // 根据点击页数请求数据
         this.getOrdersData(this.cur)
@@ -210,7 +210,7 @@
       },
     },
     created: function () {
-      this.getOrdersData()
+      this.getOrdersData(0)
     }
   }
 </script>

@@ -151,9 +151,9 @@
     name: 'screen_manage',
     data(){
       return{
-        all: 6, // 总页数
-        cur: 1, // 当前页码
-        totalPage: 0,// 当前条数
+        all: 6, // total pages
+        cur: 1, // present page
+        totalPage: 0,
         message: 'cinema',
         screenings: [],
         movies: [],
@@ -189,7 +189,7 @@
           }
         }).then(function (response) {
             _this.screenings = response.data.content
-            _this.all = response.data.totalPages// 总页数
+            _this.all = response.data.totalPages// total pages
             _this.cur = response.data.number
             _this.totalPage = response.data.totalPages
           })
@@ -210,7 +210,7 @@
           }
         }).then(function (response) {
           _this.screenings = response.data.screenings.content
-          _this.all = response.data.screenings.totalPages// 总页数
+          _this.all = response.data.screenings.totalPages// total pages
           _this.cur = response.data.screenings.number
           _this.totalPage = response.data.screenings.totalPages
         }).catch((error)=>{
@@ -241,7 +241,7 @@
           })
       },
       // 分页
-      btnClick: function (data) { // 页码点击事件
+      btnClick: function (data) { // click event
         console.log(data)
         if (data-1 !== this.cur) {
           this.cur = data-1

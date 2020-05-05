@@ -1,4 +1,4 @@
-//vue文件中引入
+//vue introduce in the file
 <template>
   <Calendar
     v-on:choseDay="clickDay"

@@ -1,7 +1,7 @@
 <template>
   <div class="power">
     <ul class="clearfix">
-      <!--根据 v-if="imgs.length>=1 ? false : true" 判断上传几张图片-->
+      <!--according to v-if="imgs.length>=1 ? false : true" decide how many pictures to upload-->
       <li style="position:relative">
         <img src="../images/close.png"><input  @change='add_img($event)' type="file">
         <img :src="img" alt="" width="220px" height="220px">
@@ -16,7 +16,7 @@
     data() {
       return {
         img: "",
-        //判断图片的类型
+        //Determine the type of image
         imgData: {
           accept: 'image/gif, image/jpeg, image/png, image/jpg',
         }
@@ -27,21 +27,21 @@
         console.log("it runs")
         let reader = new FileReader();
         let img1 = event.target.files[0];
-        let type = img1.type; //文件的类型，判断是否是图片
-        let size = img1.size; //文件的大小，判断图片的大小
+        let type = img1.type; //Type of file, determine if it is a picture
+        let size = img1.size; //The size of the file determines the size of the image
         if (this.imgData.accept.indexOf(type) == -1) {
-          alert('请选择我们支持的图片格式！');
+          alert('Please select the image format we support！');
           return false;
         }
-        //图片的大小
+        //Size of picture
         if (size > 3145728) {
-          alert('请选择3M以内的图片！');
+          alert('Please select the picture within 3M！');
           return false;
         }
         var uri = ''
         let form = new FormData();
         form.append('file', img1, img1.name);
-        //接口部分
+        //Interface section
         /*this.$axios.post("/uploads/transfer", form, {
           headers: {
             'Content-Type': 'multipart/form-data'

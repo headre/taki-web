@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  //较为不错的选择图片界面，和imageUpload之间可能要取舍（也可能不用
+  //A better choice is the image interface. There may be a trade-off (or not) between imageUpload and imageUpload.
   export default {
     name: 'testImgU',
     data () {
@@ -56,7 +56,7 @@
         $('#input').click()
       },
       changeImage (event) {
-        // 上传图片事件
+        // Upload picture event
         var files = this.$refs.avatarInput.files
         var that = this
         let img1 = event.target.files[0]

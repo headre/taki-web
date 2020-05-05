@@ -23,7 +23,7 @@
                     <tbody>
                       <tr>
                         <td>
-                          <!-- 如果当前图片名为null，使用本地图片-->
+                          <!--If the current image name is null, use the local image -->
                           <img v-if="coverName==null" src="../images/gravity.jpg"height="150px" width="330px">
                           <img v-else :src="$host+'/file/'+coverName" height="150px" width="330px">
                         <td>

@@ -112,9 +112,9 @@
     name: 'orders',
     data () {
       return {
-        all: 6, // 总页数
-        cur: 1, // 当前页码
-        totalPage: 0,// 当前条数
+        all: 6, // total pages
+        cur: 1, // current page
+        totalPage: 0,// current scroll
         message: 'cinema',
         orders: []
       }
@@ -124,7 +124,7 @@
       navbar
     },
     methods: {
-      //获取订单数据
+      //Get order data
       getOrdersData (index) {
         var _this = this
         _this.$axios({
@@ -137,7 +137,7 @@
         })
           .then(function (response) {
             _this.orders = response.data.content
-            _this.all = response.data.totalPages// 总页数
+            _this.all = response.data.totalPages// total pages
             _this.cur = response.data.number
             _this.totalPage = response.data.totalPages
             console.log(_this.orders.content)
@@ -146,7 +146,7 @@
             console.log(error)
           })
       },
-      //删除订单
+      //delete orders
       Delete (id) {
         var _this = this
         _this.$axios({
@@ -171,15 +171,15 @@
         })
 
       },
-      btnClick: function (data) { // 页码点击事件
+      btnClick: function (data) { // Page number click event
         if (data-1 !== this.cur) {
           this.cur = data-1
         }
-        // 根据点击页数请求数据
+        // Request data based on the number of clicks
         this.getOrdersData(this.cur)
       },
       pageClick: function () {
-        // 根据点击页数请求数据
+        // Request data based on the number of clicks
         this.getOrdersData(this.cur)
       },
     },

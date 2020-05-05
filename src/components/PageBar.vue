@@ -18,9 +18,9 @@
     name: 'PageBar',
     data(){
       return{
-        all: 6, // 总页数
-        cur: 1, // 当前页码
-        totalPage: 0,// 当前条数
+        all: 6, // total
+        cur: 1, // current
+        totalPage: 0,// current scroll
       }
     }
 

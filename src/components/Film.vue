@@ -23,7 +23,7 @@
                 <transition-group tag="ul" name="image">
                   <li v-for="(img, index) in imgArray" v-show="index===mark" :key="index">
                     <router-link :to="{name:'film_look',query:{key:img.id},params:{path:'film'}}">
-                      <!-- 如果当前图片名为null，使用本地图片-->
+                      <!-- if no current images,use local images-->
                      <img v-if="img.cover==null" src="../images/gravity.jpg" >
                       <img v-else :src="$host+'/file/'+img.cover">
                     </router-link>
@@ -130,7 +130,7 @@
       move () {
         this.timer = setInterval(this.autoPlay, 2500)
       },
-      //将图片与id对应存储，格式为{id:cover}
+      //Store the image and id in the corresponding format as{id:cover}
       getImgNames () {
         this.$axios({
           method: 'get',

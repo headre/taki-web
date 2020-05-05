@@ -142,9 +142,9 @@
     name: 'film_manage',
     data () {
       return {
-        all: 6, // 总页数
-        cur: 1, // 当前页码
-        totalPage: 0,// 当前条数
+        all: 6, // Total page number
+        cur: 1, // Current page 
+        totalPage: 0,// The current article number
         message: 'cinema',
         movies: []
       }
@@ -166,7 +166,7 @@
         })
           .then(function (response) {
             _this.movies = response.data.content
-            _this.all = response.data.totalPages// 总页数
+            _this.all = response.data.totalPages// Total number of pages
             _this.cur = response.data.number
             _this.totalPage = response.data.totalPages
             console.log(_this.movies)
@@ -175,7 +175,7 @@
             console.log(error)
           })
       },
-      //删除排片
+      //Delete the screens
       Delete (id) {
         var _this = this
         _this.$axios({
@@ -188,15 +188,15 @@
           console.log(error)
         })
       },
-      btnClick: function (data) { // 页码点击事件
+      btnClick: function (data) { // Page number click event
         if (data-1 !== this.cur) {
           this.cur = data-1
         }
-        // 根据点击页数请求数据
+        // Request data based on the number of clicks
         this.getData(this.cur)
       },
       pageClick: function () {
-        // 根据点击页数请求数据
+        // Request data based on the number of clicks
         this.getData(this.cur)
       },
     },
